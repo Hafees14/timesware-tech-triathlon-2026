@@ -11,13 +11,15 @@ const WP_ICONS = {
   search: '<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M13.5 13.5L10.3 10.3"/></svg>',
   bell: '<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M8 2.2a3.6 3.6 0 00-3.6 3.6v2.4L3 10.6h10L11.6 8.2V5.8A3.6 3.6 0 008 2.2z"/><path d="M6.6 12.8a1.4 1.4 0 002.8 0"/></svg>',
   user: '<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="5.3" r="2.6"/><path d="M2.5 14c0-3 2.5-4.7 5.5-4.7s5.5 1.7 5.5 4.7"/></svg>',
-  gear: '<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4.5h9M11.5 4.5a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0zM14 11.5H5M2.5 11.5a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0z"/></svg>'
+  gear: '<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4.5h9M11.5 4.5a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0zM14 11.5H5M2.5 11.5a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0z"/></svg>',
+  home: '<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7.5L8 2l6 5.5"/><path d="M3.5 6.5V14h9V6.5"/></svg>'
 };
 function ic(name) {
   return '<span class="ic-svg" style="display:inline-flex;vertical-align:-2px;">' + (WP_ICONS[name] || "") + '</span>';
 }
 
 const WP_NAV = [
+  { key: "home", label: "Home", href: "index.html", icon: ic("home") },
   { key: "overview", label: "Overview", href: "dispatcher-overview.html", icon: ic("grid") },
   { key: "orders", label: "Orders", href: "dispatcher-overview.html", icon: ic("list") },
   { key: "planning", label: "Planning", href: "dispatcher-allocation.html", icon: ic("route") },
@@ -33,10 +35,10 @@ function renderSidebar(activeKey) {
     </a>`).join("");
   return `
   <aside class="sidebar">
-    <div class="sidebar-brand">
+    <a class="sidebar-brand" href="index.html" style="text-decoration:none;" aria-label="Waypoint Home">
       <div class="mark">W</div>
       <div class="name">Waypoint</div>
-    </div>
+    </a>
     <nav class="sidebar-nav">${items}</nav>
     <div class="sidebar-foot">
       <a class="nav-item" href="#"><span class="ic">${ic("gear")}</span><span>Settings</span></a>

@@ -12,21 +12,23 @@
 <link rel="stylesheet" href="css/wow.css" />
 <style>
   body {
-    background: var(--c-navy-grad); color: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh;
-    position: relative; overflow: hidden;
+    background: var(--c-navy-grad); color: #fff; min-height: 100vh;
+    position: relative;
   }
   body::before {
-    content: ""; position: absolute; inset: -20%; z-index: 0;
+    content: ""; position: fixed; inset: -20%; z-index: 0;
     background:
       radial-gradient(circle at 15% 20%, rgba(179,115,10,0.22), transparent 40%),
       radial-gradient(circle at 85% 75%, rgba(36,114,164,0.16), transparent 45%);
     pointer-events: none;
   }
   body::after {
-    content: ""; position: absolute; inset: 0; z-index: 0; opacity: .5;
+    content: ""; position: fixed; inset: 0; z-index: 0; opacity: .5;
     background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
     background-size: 42px 42px; mask-image: radial-gradient(circle at 50% 30%, rgba(0,0,0,.9), transparent 70%);
   }
+  #wow-network { position: fixed !important; inset: -20% !important; }
+  .hub-section { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: var(--sp-7) 0; position: relative; z-index: 1; }
   .hub { max-width: 920px; width: 100%; padding: var(--sp-7); position: relative; z-index: 1; animation: wp-rise 600ms var(--ease) both; }
   .hub .eyebrow { display:inline-flex; align-items:center; gap:8px; font-size: var(--fs-100); text-transform: uppercase; letter-spacing: 0.08em; color: #d9a441; font-weight: 700; background: rgba(179,115,10,.14); border: 1px solid rgba(179,115,10,.3); padding: 5px 12px; border-radius: var(--r-pill); margin-bottom: var(--sp-4); }
   .hub .brand-row { display:flex; align-items:center; gap:14px; margin-bottom: 10px; }
@@ -52,12 +54,63 @@
   .role-card:hover .go { opacity: 1; transform: translateX(0); }
   .hub-foot { margin-top: var(--sp-7); display:flex; gap: var(--sp-5); color: #5b6874; font-size: var(--fs-100); }
   @media (max-width: 800px) { .role-grid { grid-template-columns: 1fr 1fr; } }
+
+  /* ---- Centered scroll hero (Home only) ---- */
+  .wp-hero { position: relative; z-index: 1; height: 180vh; }
+  .wp-hero-stage {
+    position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center;
+    overflow: hidden; will-change: transform;
+  }
+  .wp-hero-object {
+    width: 132px; height: 132px; border-radius: 30px; background: var(--c-brand-grad);
+    display: flex; align-items: center; justify-content: center; box-shadow: var(--sh-brand);
+    font-family: var(--f-display); font-weight: 700; font-size: 56px; color: #fff;
+    will-change: transform, opacity; opacity: 0;
+  }
+  .wp-hero-copy {
+    position: absolute; text-align: center; opacity: 0; will-change: transform, opacity;
+  }
+  .wp-hero-copy h2 { font-family: var(--f-display); font-weight: 700; font-size: 3rem; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .wp-hero-copy p { color: #9aa4ae; font-size: var(--fs-400); }
+  .wp-hero-cue {
+    position: absolute; left: 50%; bottom: var(--sp-8); transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: #7c8894; font-size: var(--fs-100); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;
+    transition: opacity var(--dur-med) var(--ease);
+  }
+  .wp-hero-cue i {
+    width: 1px; height: 28px; background: linear-gradient(180deg, #7c8894, transparent);
+  }
+  @media (max-width: 720px) {
+    .wp-hero { height: 130vh; }
+    .wp-hero-object { width: 92px; height: 92px; border-radius: 22px; font-size: 40px; }
+    .wp-hero-copy h2 { font-size: 2.1rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wp-hero { height: auto; }
+    .wp-hero-stage { position: relative; height: auto; padding: var(--sp-9) 0; }
+    .wp-hero-object, .wp-hero-copy { opacity: 1 !important; transform: none !important; position: static !important; margin-bottom: var(--sp-5); }
+    .wp-hero-cue { display: none; }
+  }
 </style>
 <link rel="stylesheet" href="css/wow-premium.css" />
 </head>
 <body>
   <div class="wow-topline"></div>
   <canvas id="wow-network"></canvas>
+
+  <section class="wp-hero" id="wpHero">
+    <div class="wp-hero-stage" id="wpHeroStage">
+      <div class="wp-hero-object" id="wpHeroObject" aria-hidden="true">W</div>
+      <div class="wp-hero-copy" id="wpHeroCopy">
+        <h2>Waypoint</h2>
+        <p>Intelligent Delivery Planning &amp; Operations</p>
+      </div>
+    </div>
+    <div class="wp-hero-cue" id="wpHeroCue"><span>Scroll</span><i></i></div>
+  </section>
+
+  <div class="hub-section">
   <div class="hub">
     <span class="eyebrow">Team Timesware &middot; Tech-Triathlon 2026</span>
     <div class="brand-row"><div class="mark">W</div><h1 class="wow-kinetic-h1" style="margin:0;">Waypoint</h1></div>
@@ -97,6 +150,7 @@
       <span>Synthetic demo data</span>
     </div>
   </div>
+  </div>
 <script src="js/wow.js"></script>
 <script>
   WOW.initNetworkCanvas("wow-network");
@@ -110,6 +164,113 @@
   WOWPremium.initPage();
   document.querySelectorAll(".role-card").forEach(function(c){ c.setAttribute("data-cursor-respond",""); });
   if (WOWPremium.ElementResponder && WOWPremium.ElementResponder.createClickExpand) { WOWPremium.ElementResponder.createClickExpand(".role-card"); }
+})();
+</script>
+
+<script>
+/* ---- Waypoint Home — centered scroll hero ----
+   Scroll-position-driven zoom/transform of the brand mark, plus a subtle
+   proximity-based cursor response. Scoped to index.html only. */
+(function () {
+  var hero = document.getElementById("wpHero");
+  var stage = document.getElementById("wpHeroStage");
+  var obj = document.getElementById("wpHeroObject");
+  var copy = document.getElementById("wpHeroCopy");
+  var cue = document.getElementById("wpHeroCue");
+  if (!hero || !stage || !obj) return;
+
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduceMotion) return; // CSS fallback already makes everything visible/static
+
+  var targetP = 0, curP = 0;
+  var targetMX = 0, targetMY = 0, curMX = 0, curMY = 0;
+  var raf = null;
+
+  function ease(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+
+  function heroProgress() {
+    var rect = hero.getBoundingClientRect();
+    var top = rect.top + window.scrollY;
+    var scrollable = Math.max(hero.offsetHeight - window.innerHeight, 1);
+    var p = (window.scrollY - top) / scrollable;
+    return Math.max(0, Math.min(1, p));
+  }
+
+  function onScroll() {
+    targetP = heroProgress();
+    wake();
+  }
+
+  function onMouseMove(e) {
+    var r = stage.getBoundingClientRect();
+    var dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+    var dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+    targetMX = Math.max(-1, Math.min(1, dx));
+    targetMY = Math.max(-1, Math.min(1, dy));
+    wake();
+  }
+  function onMouseLeave() { targetMX = 0; targetMY = 0; wake(); }
+
+  function wake() { if (!raf) raf = requestAnimationFrame(tick); }
+
+  function tick() {
+    curP += (targetP - curP) * 0.18;
+    curMX += (targetMX - curMX) * 0.12;
+    curMY += (targetMY - curMY) * 0.12;
+
+    render(curP, curMX, curMY);
+
+    var settled = Math.abs(targetP - curP) < 0.001 && Math.abs(targetMX - curMX) < 0.001 && Math.abs(targetMY - curMY) < 0.001;
+    raf = settled ? null : requestAnimationFrame(tick);
+  }
+
+  function render(p, mx, my) {
+    var scale, rot, opacity, ty;
+    var proximity = 1 - Math.min(1, Math.abs(p - 0.46) / 0.46); // cursor influence peaks mid-sequence
+
+    if (p <= 0.32) {
+      var t = ease(p / 0.32);
+      scale = 0.5 + t * 0.85;
+      rot = -10 + t * 10;
+      opacity = Math.min(1, t * 1.4);
+      ty = 40 * (1 - t);
+    } else if (p <= 0.6) {
+      var t2 = (p - 0.32) / 0.28;
+      scale = 1.35 - t2 * 0.05;
+      rot = 0;
+      opacity = 1;
+      ty = 0;
+    } else {
+      var t3 = ease((p - 0.6) / 0.4);
+      scale = 1.30 - t3 * 0.9;
+      rot = t3 * 8;
+      opacity = 1 - t3;
+      ty = -50 * t3;
+    }
+
+    var mxOff = mx * 18 * proximity;
+    var myOff = my * 14 * proximity;
+
+    obj.style.opacity = opacity;
+    obj.style.transform = "translate3d(" + mxOff + "px," + (ty + myOff) + "px,0) scale(" + scale + ") rotate(" + rot + "deg)";
+
+    if (copy) {
+      var copyP = p < 0.30 ? 0 : (p > 0.62 ? Math.max(0, 1 - (p - 0.62) / 0.25) : Math.min(1, (p - 0.30) / 0.12));
+      copy.style.opacity = copyP;
+      copy.style.transform = "translateY(" + (14 * (1 - copyP)) + "px) scale(" + (0.96 + 0.04 * copyP) + ")";
+    }
+    if (cue) cue.style.opacity = Math.max(0, 1 - p * 3.2);
+
+    stage.style.transform = "scale(" + (1 - 0.04 * Math.max(0, (p - 0.6) / 0.4)) + ")";
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  if (window.innerWidth >= 900) {
+    stage.addEventListener("mousemove", onMouseMove);
+    stage.addEventListener("mouseleave", onMouseLeave);
+  }
+  onScroll();
 })();
 </script>
 </body>
