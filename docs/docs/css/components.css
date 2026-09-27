@@ -13,10 +13,11 @@
 }
 .btn:active:not(:disabled) { transform: translateY(1px) scale(0.99); }
 .btn:disabled { opacity: 0.45; cursor: not-allowed; }
-.btn-primary { background: var(--c-navy); color: #fff; box-shadow: var(--sh-1); }
-.btn-primary:hover:not(:disabled) { background: var(--c-ink-800); box-shadow: var(--sh-2); }
-.btn-brand { background: var(--c-brand-grad); color: #fff; box-shadow: var(--sh-brand); }
-.btn-brand:hover:not(:disabled) { filter: brightness(1.06); box-shadow: 0 10px 24px rgba(179,115,10,.32); }
+.btn:hover:not(:disabled) { transform: translateY(-1px); }
+.btn-primary { background: var(--c-accent-grad); color: #fff; box-shadow: 0 8px 20px rgba(31,178,201,.25); }
+.btn-primary:hover:not(:disabled) { filter: brightness(1.05); box-shadow: 0 10px 24px rgba(31,178,201,.32); }
+.btn-brand { background: var(--c-navy); color: #fff; box-shadow: var(--sh-1); }
+.btn-brand:hover:not(:disabled) { background: var(--c-ink-800); box-shadow: var(--sh-2); }
 .btn-secondary { background: var(--c-surface-0); color: var(--c-ink-800); border-color: var(--c-border-strong); box-shadow: var(--sh-1); }
 .btn-secondary:hover:not(:disabled) { background: var(--c-surface-2); border-color: var(--c-ink-400); }
 .btn-ghost { background: transparent; color: var(--c-ink-700); }
@@ -39,7 +40,7 @@
   background: var(--c-surface-0); color: var(--c-ink-900);
   transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
 }
-.input:focus, .select:focus { border-color: var(--c-brand); box-shadow: 0 0 0 3px var(--c-brand-tint); outline: none; }
+.input:focus, .select:focus { border-color: var(--c-accent); box-shadow: 0 0 0 3px var(--c-accent-tint); outline: none; }
 .select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235b6874'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; cursor: pointer; }
 .select:hover { border-color: var(--c-ink-400); }
 
@@ -142,14 +143,14 @@ table.data tr.row-flagged:hover { background: #f5e3c1; }
 
 /* ---------- Progress ---------- */
 .progress { height: 7px; border-radius: var(--r-pill); background: var(--c-surface-3); overflow: hidden; }
-.progress > span { display: block; height: 100%; background: var(--c-brand-grad); border-radius: var(--r-pill); transition: width var(--dur-slow) var(--ease); }
+.progress > span { display: block; height: 100%; background: var(--c-accent-grad); border-radius: var(--r-pill); transition: width var(--dur-slow) var(--ease); }
 .progress.success > span { background: linear-gradient(90deg, var(--c-success), var(--c-success-hi)); }
 .progress.danger > span { background: linear-gradient(90deg, var(--c-danger), var(--c-danger-hi)); }
 
 /* ---------- Nav (sidebar) ---------- */
 .sidebar { background: var(--c-navy-grad); color: #cfd6dd; width: var(--sidebar-w); flex-shrink: 0; display: flex; flex-direction: column; height: 100vh; position: sticky; top: 0; border-right: 1px solid #1b232f; }
 .sidebar-brand { display: flex; align-items: center; gap: 11px; padding: var(--sp-5) var(--sp-5) var(--sp-4); }
-.sidebar-brand .mark { width: 30px; height: 30px; border-radius: 8px; background: var(--c-brand-grad); box-shadow: var(--sh-brand); display: flex; align-items: center; justify-content: center; font-family: var(--f-display); font-weight: 700; color: #fff; font-size: 15px; }
+.sidebar-brand .mark { width: 30px; height: 30px; border-radius: 8px; background: var(--c-accent-grad); box-shadow: 0 8px 20px rgba(31,178,201,.25); display: flex; align-items: center; justify-content: center; font-family: var(--f-display); font-weight: 700; color: #fff; font-size: 15px; }
 .sidebar-brand .name { font-family: var(--f-display); font-weight: 700; font-size: var(--fs-500); color: #fff; letter-spacing: -0.01em; }
 .sidebar-nav { flex: 1; padding: var(--sp-3) var(--sp-3); display: flex; flex-direction: column; gap: 2px; overflow-y: auto; }
 .nav-item {
@@ -160,7 +161,7 @@ table.data tr.row-flagged:hover { background: #f5e3c1; }
 }
 .nav-item .ic { width: 18px; text-align: center; opacity: 0.85; }
 .nav-item:hover { background: var(--c-navy-raised); color: #fff; }
-.nav-item.active { background: linear-gradient(90deg, rgba(179,115,10,.16), rgba(179,115,10,.03)); color: #fff; box-shadow: inset 3px 0 0 var(--c-brand); }
+.nav-item.active { background: linear-gradient(90deg, rgba(31,178,201,.18), rgba(31,178,201,.03)); color: #fff; box-shadow: inset 3px 0 0 var(--c-accent); }
 .sidebar-foot { padding: var(--sp-3); border-top: 1px solid #202834; display: flex; flex-direction: column; gap: 2px; }
 
 /* ---------- Topbar ---------- */
@@ -175,7 +176,7 @@ table.data tr.row-flagged:hover { background: #f5e3c1; }
 /* ---------- Tabs ---------- */
 .tabs { display: flex; gap: var(--sp-1); border-bottom: 1px solid var(--c-border); }
 .tab { padding: 10px 4px; margin-right: var(--sp-5); font-size: var(--fs-300); font-weight: var(--fw-medium); color: var(--c-ink-500); border-bottom: 2px solid transparent; cursor: pointer; background: none; border-top: none; border-left: none; border-right: none; transition: color var(--dur-fast) var(--ease); }
-.tab.active { color: var(--c-ink-900); border-bottom-color: var(--c-brand); font-weight: var(--fw-semibold); }
+.tab.active { color: var(--c-ink-900); border-bottom-color: var(--c-accent); font-weight: var(--fw-semibold); }
 
 /* ---------- Filters row ---------- */
 .filter-row { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
@@ -206,6 +207,14 @@ table.data tr.row-flagged:hover { background: #f5e3c1; }
 }
 .offline-bar.syncing { background: var(--c-info); color: #fff; }
 .offline-bar.synced { background: linear-gradient(135deg, var(--c-success), #156b41); color: #fff; }
+
+/* ---------- Route strip: inline signature motif ●━━━━━━● ---------- */
+.route-strip { display: flex; align-items: center; gap: 2px; flex: 1; min-width: 40px; }
+.route-strip .rs-node { width: 6px; height: 6px; border-radius: 50%; background: var(--route-node); flex-shrink: 0; }
+.route-strip .rs-node.accent { background: var(--route-line); box-shadow: 0 0 0 3px var(--c-accent-tint); }
+.route-strip .rs-line { flex: 1; height: 2px; background: var(--route-line-dim); position: relative; overflow: hidden; }
+.route-strip .rs-line > span { position: absolute; inset: 0; background: var(--route-line); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-slow) var(--ease); }
+.route-strip.done .rs-line > span { transform: scaleX(1); }
 
 /* ---------- Utility ---------- */
 .flex { display: flex; }

@@ -16,7 +16,7 @@
 /* ---------- Top accent line (all wow pages) ---------- */
 .wow-topline {
   position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 40; pointer-events: none;
-  background: linear-gradient(90deg, var(--c-brand), var(--c-info), var(--c-chilled), var(--c-brand));
+  background: linear-gradient(90deg, var(--c-accent), var(--c-info), var(--c-chilled), var(--c-accent));
   background-size: 300% 100%;
   animation: wow-topline-sweep 8s linear infinite;
 }
@@ -54,14 +54,14 @@ body.wow-mesh .sidebar-brand .mark { animation: wow-pulse-glow 3.2s ease-in-out 
 body.wow-mesh .nav-item.active { position: relative; }
 body.wow-mesh .nav-item.active::after {
   content: ""; position: absolute; right: 10px; top: 50%; width: 5px; height: 5px; margin-top: -2.5px;
-  border-radius: 50%; background: var(--c-brand-hi);
+  border-radius: 50%; background: var(--c-accent-hi);
   box-shadow: 0 0 0 0 rgba(214,143,31,.6);
   animation: wow-ring-soft 2s ease-out infinite;
 }
 
 /* ---------- Kinetic gradient headline ---------- */
 .wow-kinetic-h1 {
-  background: linear-gradient(100deg, currentColor 28%, var(--c-brand-hi) 46%, var(--c-info) 54%, currentColor 72%);
+  background: linear-gradient(100deg, currentColor 28%, var(--c-accent-hi) 46%, var(--c-info) 54%, currentColor 72%);
   background-size: 260% auto;
   -webkit-background-clip: text; background-clip: text; color: transparent;
   animation: wow-sheen 7s linear infinite;
@@ -98,7 +98,7 @@ body.wow-mesh .btn-brand:hover::after { left: 130%; }
 /* ---------- Table row sweep-in highlight on hover ---------- */
 body.wow-mesh table.data tbody tr { position: relative; }
 body.wow-mesh table.data tbody tr:hover td:first-child::before {
-  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--c-brand-grad);
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--c-accent-grad);
 }
 
 /* ---------- Shortfall banner (allocation flagship moment) ---------- */
