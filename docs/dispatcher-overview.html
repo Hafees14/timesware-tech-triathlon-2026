@@ -9,14 +9,16 @@
 <link rel="stylesheet" href="css/tokens.css" />
 <link rel="stylesheet" href="css/components.css" />
 <link rel="stylesheet" href="css/layout.css" />
+<link rel="stylesheet" href="css/wow.css" />
 </head>
-<body>
+<body class="wow-mesh">
+<div class="wow-topline"></div>
 <div class="app-shell" id="app-shell"></div>
 
 <template id="page-tpl">
   <div class="page-head">
     <div>
-      <h1>Today's Order Queue</h1>
+      <h1 class="wow-kinetic-h1">Today's Order Queue</h1>
       <div class="desc">Confirmed orders for delivery — orders close at 4:00 PM the day before.</div>
     </div>
     <div class="flex gap-2">
@@ -48,6 +50,7 @@
 
 <script src="js/data.js"></script>
 <script src="js/app.js"></script>
+<script src="js/wow.js"></script>
 <script>
   mountDispatcherShell("overview");
   document.getElementById("content").innerHTML = document.getElementById("page-tpl").innerHTML;
@@ -61,6 +64,9 @@
     <div class="kpi-card tone-danger"><div class="kpi-top"><span class="stat-label">At-risk orders</span><div class="kpi-icon tone-danger">${ic("bell")}</div></div><span class="stat-value danger">${c.atRisk}</span><span class="stat-sub"><a href="dispatcher-allocation.html" style="color:var(--c-danger);text-decoration:underline;">Review in Planning</a></span></div>
   `;
   staggerIn("#kpis", 60);
+  WOW.countUpAll("#kpis .stat-value", 900);
+  WOW.tilt(".kpi-card", 5);
+  WOW.magnetic(".btn-brand");
 
   const statusBadge = s => s === "Confirmed"
     ? `<span class="badge badge-success"><span class="badge-dot"></span>Confirmed</span>`
@@ -81,6 +87,7 @@
       <td>${o.access}</td>
       <td>${statusBadge(o.status)}</td>
     </tr>`).join("");
+  WOW.reveal("#order-rows tr", 35);
   document.querySelectorAll(".select").forEach(s => s.addEventListener("change", () => toast("Filters applied", "success")));
 </script>
 </body>

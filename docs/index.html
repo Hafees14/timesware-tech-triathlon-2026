@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="css/tokens.css" />
 <link rel="stylesheet" href="css/components.css" />
 <link rel="stylesheet" href="css/layout.css" />
+<link rel="stylesheet" href="css/wow.css" />
 <style>
   body {
     background: var(--c-navy-grad); color: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh;
@@ -54,9 +55,11 @@
 </style>
 </head>
 <body>
+  <div class="wow-topline"></div>
+  <canvas id="wow-network"></canvas>
   <div class="hub">
     <span class="eyebrow">Team Timesware &middot; Tech-Triathlon 2026</span>
-    <div class="brand-row"><div class="mark">W</div><h1 style="margin:0;">Waypoint</h1></div>
+    <div class="brand-row"><div class="mark">W</div><h1 class="wow-kinetic-h1" style="margin:0;">Waypoint</h1></div>
     <p class="lead">Intelligent Delivery Planning &amp; Operations System for cold-chain retail distribution — allocation, live tracking, and deferral management across four connected roles. Pick a role to open its experience.</p>
     <div class="role-grid">
       <a class="role-card" href="dispatcher-overview.html">
@@ -93,5 +96,10 @@
       <span>Synthetic demo data</span>
     </div>
   </div>
+<script src="js/wow.js"></script>
+<script>
+  WOW.initNetworkCanvas("wow-network");
+  WOW.tilt(".role-card", 6);
+</script>
 </body>
 </html>

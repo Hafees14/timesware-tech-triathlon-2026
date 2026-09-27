@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="css/tokens.css" />
 <link rel="stylesheet" href="css/components.css" />
 <link rel="stylesheet" href="css/layout.css" />
+<link rel="stylesheet" href="css/wow.css" />
 <style>
   .order-pool-item { border: 1px solid var(--c-border); border-radius: var(--r-md); padding: var(--sp-3); margin-bottom: var(--sp-2); background: var(--c-surface-0); }
   .order-pool-item.risk { border-color: #f0dcb0; background: var(--c-warning-tint); }
@@ -30,13 +31,14 @@
   .strip-stat:last-of-type { border-right: none; padding-right: 0; }
 </style>
 </head>
-<body>
+<body class="wow-mesh">
+<div class="wow-topline"></div>
 <div class="app-shell" id="app-shell"></div>
 
 <template id="page-tpl">
   <div class="page-head">
     <div>
-      <h1>Allocation &amp; Planning</h1>
+      <h1 class="wow-kinetic-h1">Allocation &amp; Planning</h1>
       <div class="desc">Peliyagoda depot &middot; assigning confirmed orders to vehicles and trips for tomorrow's Fresh run.</div>
     </div>
     <div class="flex gap-2">
@@ -45,17 +47,17 @@
   </div>
 
   <!-- CAPACITY SHORTFALL BANNER (degradation scenario) -->
-  <div class="alert alert-danger shortfall-banner" id="shortfall-banner">
+  <div class="alert alert-danger shortfall-banner wow-urgent" id="shortfall-banner">
     <div class="alert-icon"><span class="ic-svg" style="display:inline-flex;vertical-align:-2px;"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.2l6.5 11.3H1.5L8 2.2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg></span></div>
     <div style="flex:1;">
       <div class="alert-title">CAPACITY SHORTFALL</div>
       <p>Today's demand exceeds available capacity.</p>
       <p style="margin-top:6px;"><strong>Binding constraint:</strong> 3 of 16 refrigerated vehicles are unavailable (workshop maintenance). Gampaha Fresh trips also exceed the 270-minute pre-dawn budget.</p>
-      <div class="shortfall-stats">
-        <span class="sf-pill"><b>86</b>confirmed orders</span>
-        <span class="sf-pill"><b>13/16</b>refrigerated capacity</span>
-        <span class="sf-pill"><b>6/8</b>van capacity</span>
-        <span class="sf-pill" style="color:var(--c-danger);"><b>12</b>orders at risk</span>
+      <div class="shortfall-stats" id="sf-stats">
+        <span class="sf-pill"><b class="wow-count">86</b>confirmed orders</span>
+        <span class="sf-pill"><b class="wow-count">13/16</b>refrigerated capacity</span>
+        <span class="sf-pill"><b class="wow-count">6/8</b>van capacity</span>
+        <span class="sf-pill" style="color:var(--c-danger);"><b class="wow-count">12</b>orders at risk</span>
       </div>
     </div>
   </div>
@@ -157,6 +159,7 @@
 
 <script src="js/data.js"></script>
 <script src="js/app.js"></script>
+<script src="js/wow.js"></script>
 <script>
   mountDispatcherShell("planning");
   document.getElementById("content").innerHTML = document.getElementById("page-tpl").innerHTML;
@@ -165,6 +168,10 @@
   document.getElementById("ic-strip-pulse").innerHTML = ic("pulse");
   document.getElementById("ic-strip-grid").innerHTML = ic("grid");
   document.getElementById("ic-strip-bell").innerHTML = ic("bell");
+  WOW.countUpAll(".strip-stat .stat-value", 800);
+  WOW.countUpAll("#sf-stats .wow-count", 800);
+  WOW.magnetic(".btn-brand");
+  WOW.tilt(".kpi-card", 5);
 
   const pool = WP_DATA.orders.filter(o => o.status === "At risk");
   document.getElementById("order-pool").innerHTML = pool.map(o => `
@@ -179,6 +186,7 @@
         </div>
       </div>
     </div>`).join("");
+  WOW.reveal("#order-pool .order-pool-item", 60);
 
   document.getElementById("flagged-orders").innerHTML = `
     <div class="alert alert-warning" style="margin-bottom:var(--sp-3);">

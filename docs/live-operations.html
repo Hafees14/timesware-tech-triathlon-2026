@@ -9,14 +9,16 @@
 <link rel="stylesheet" href="css/tokens.css" />
 <link rel="stylesheet" href="css/components.css" />
 <link rel="stylesheet" href="css/layout.css" />
+<link rel="stylesheet" href="css/wow.css" />
 </head>
-<body>
+<body class="wow-mesh">
+<div class="wow-topline"></div>
 <div class="app-shell" id="app-shell"></div>
 
 <template id="page-tpl">
   <div class="page-head">
     <div>
-      <h1>Live Operations</h1>
+      <h1 class="wow-kinetic-h1">Live Operations</h1>
       <div class="desc">Real-time view of vehicles on the road. Loader and driver issues surface here immediately.</div>
     </div>
   </div>
@@ -40,6 +42,7 @@
 
 <script src="js/data.js"></script>
 <script src="js/app.js"></script>
+<script src="js/wow.js"></script>
 <script>
   mountDispatcherShell("live");
   document.getElementById("content").innerHTML = document.getElementById("page-tpl").innerHTML;
@@ -48,6 +51,8 @@
   document.getElementById("ic-done").innerHTML = ic("bell");
   document.getElementById("ic-issue").innerHTML = ic("bell");
   staggerIn("#kpis", 60);
+  WOW.countUpAll("#kpis .stat-value", 800);
+  WOW.tilt(".kpi-card", 5);
 
   const statusMap = {
     "In Transit": "badge-info", "At Stop": "badge-brand", "Completed": "badge-success", "Issue Reported": "badge-danger"
@@ -63,6 +68,8 @@
       <td>${t.eta}</td>
       <td><span class="badge ${statusMap[t.status]}">${liveDot(t.status)}${t.status}</span></td>
     </tr>`).join("");
+  WOW.reveal("#rows tr", 60);
+  WOW.fillIn("#rows .progress");
 </script>
 </body>
 </html>
