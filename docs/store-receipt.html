@@ -16,6 +16,7 @@
   .compare-row.mismatch { background: var(--c-warning-tint); }
   .compare-head { font-weight:600; color: var(--c-ink-500); }
 </style>
+<link rel="stylesheet" href="css/wow-premium.css" />
 </head>
 <body>
   <div class="sm-top">
@@ -57,6 +58,16 @@
   document.getElementById("discrepancy-btn").addEventListener("click", () => {
     document.getElementById("issue-panel").style.display = "block";
   });
+</script>
+<script src="js/wow-premium.js"></script>
+
+<script>
+(function(){
+  if (!window.WOWPremium) return;
+  if (WOWPremium.ResponsiveInteractions && WOWPremium.ResponsiveInteractions.init) { WOWPremium.ResponsiveInteractions.init(); }
+  if (WOWPremium.CardElevator) { WOWPremium.CardElevator.enhanceCards(".card"); }
+  if (WOWPremium.initScrollAnimations) { WOWPremium.initScrollAnimations({ sectionReveal: { scale: 0.96, opacity: 0.8, translateY: 20 } }); }
+})();
 </script>
 </body>
 </html>

@@ -19,6 +19,7 @@
   .detail-row .k { color: var(--c-ink-500); }
   .detail-row .v { font-weight:600; text-align:right; }
 </style>
+<link rel="stylesheet" href="css/wow-premium.css" />
 </head>
 <body>
 <div class="phone-frame">
@@ -46,5 +47,15 @@
     <a class="btn btn-brand btn-lg btn-block" href="driver-outcome.html">Record Outcome</a>
   </div>
 </div>
+<script src="js/wow-premium.js"></script>
+
+<script>
+(function(){
+  if (!window.WOWPremium) return;
+  if (WOWPremium.ResponsiveInteractions && WOWPremium.ResponsiveInteractions.init) { WOWPremium.ResponsiveInteractions.init(); }
+  if (WOWPremium.CardElevator) { WOWPremium.CardElevator.enhanceCards(".card"); }
+  if (WOWPremium.initScrollAnimations) { WOWPremium.initScrollAnimations({ sectionReveal: { scale: 0.96, opacity: 0.8, translateY: 20 } }); }
+})();
+</script>
 </body>
 </html>

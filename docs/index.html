@@ -53,6 +53,7 @@
   .hub-foot { margin-top: var(--sp-7); display:flex; gap: var(--sp-5); color: #5b6874; font-size: var(--fs-100); }
   @media (max-width: 800px) { .role-grid { grid-template-columns: 1fr 1fr; } }
 </style>
+<link rel="stylesheet" href="css/wow-premium.css" />
 </head>
 <body>
   <div class="wow-topline"></div>
@@ -100,6 +101,16 @@
 <script>
   WOW.initNetworkCanvas("wow-network");
   WOW.tilt(".role-card", 6);
+</script>
+<script src="js/wow-premium.js"></script>
+
+<script>
+(function(){
+  if (!window.WOWPremium) return;
+  WOWPremium.initPage();
+  document.querySelectorAll(".role-card").forEach(function(c){ c.setAttribute("data-cursor-respond",""); });
+  if (WOWPremium.ElementResponder && WOWPremium.ElementResponder.createClickExpand) { WOWPremium.ElementResponder.createClickExpand(".role-card"); }
+})();
 </script>
 </body>
 </html>

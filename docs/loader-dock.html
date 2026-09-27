@@ -17,6 +17,7 @@
   .dock-card:hover { box-shadow: var(--sh-2); transform: translateY(-1px); }
   .dock-card .veh { font-family: var(--f-display); font-size: var(--fs-600); font-weight:700; }
 </style>
+<link rel="stylesheet" href="css/wow-premium.css" />
 </head>
 <body>
   <div class="tb-top">
@@ -52,6 +53,16 @@
         <a class="btn btn-brand btn-lg" href="loader-loading.html">Open loading list</a>
       </div>
     </div>`).join("");
+</script>
+<script src="js/wow-premium.js"></script>
+
+<script>
+(function(){
+  if (!window.WOWPremium) return;
+  if (WOWPremium.ResponsiveInteractions && WOWPremium.ResponsiveInteractions.init) { WOWPremium.ResponsiveInteractions.init(); }
+  if (WOWPremium.CardElevator) { WOWPremium.CardElevator.enhanceCards(".card"); }
+  if (WOWPremium.initScrollAnimations) { WOWPremium.initScrollAnimations({ sectionReveal: { scale: 0.96, opacity: 0.8, translateY: 20 } }); }
+})();
 </script>
 </body>
 </html>

@@ -21,6 +21,7 @@
   .step.active .dot { background: var(--c-brand); border-color: var(--c-brand); }
   .step span.lbl { font-size: var(--fs-100); color: var(--c-ink-500); text-align:center; }
 </style>
+<link rel="stylesheet" href="css/wow-premium.css" />
 </head>
 <body>
   <div class="sm-top">
@@ -44,5 +45,15 @@
     <a class="btn btn-brand btn-lg btn-block" href="store-receipt.html">Confirm Receipt (when it arrives)</a>
     <a class="btn btn-secondary btn-block" href="store-deferral.html">See a deferred-order example &rarr;</a>
   </div>
+<script src="js/wow-premium.js"></script>
+
+<script>
+(function(){
+  if (!window.WOWPremium) return;
+  if (WOWPremium.ResponsiveInteractions && WOWPremium.ResponsiveInteractions.init) { WOWPremium.ResponsiveInteractions.init(); }
+  if (WOWPremium.CardElevator) { WOWPremium.CardElevator.enhanceCards(".card"); }
+  if (WOWPremium.initScrollAnimations) { WOWPremium.initScrollAnimations({ sectionReveal: { scale: 0.96, opacity: 0.8, translateY: 20 } }); }
+})();
+</script>
 </body>
 </html>

@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="css/tokens.css" />
 <link rel="stylesheet" href="css/components.css" />
 <link rel="stylesheet" href="css/layout.css" />
+<link rel="stylesheet" href="css/wow-premium.css" />
 </head>
 <body>
 <div class="app-shell" id="app-shell"></div>
@@ -58,6 +59,16 @@
     toast("Plan committed — dock queue and driver routes have been generated.", "success");
     setTimeout(() => window.location.href = "live-operations.html", 900);
   });
+</script>
+<script src="js/wow-premium.js"></script>
+
+<script>
+(function(){
+  if (!window.WOWPremium) return;
+  WOWPremium.initPage();
+  if (WOWPremium.TopbarAnchor && WOWPremium.TopbarAnchor.createSticky) { WOWPremium.TopbarAnchor.createSticky(); }
+  document.querySelectorAll("[role='button'], .btn, .select").forEach(function(el){ el.setAttribute("data-cursor-respond",""); });
+})();
 </script>
 </body>
 </html>

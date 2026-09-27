@@ -18,6 +18,7 @@
   .qty-row { display:flex; justify-content:space-between; align-items:center; padding: var(--sp-3) 0; border-bottom: 1px solid var(--c-border); }
   .qty-row:last-child { border-bottom:none; }
 </style>
+<link rel="stylesheet" href="css/wow-premium.css" />
 </head>
 <body>
   <div class="sm-top">
@@ -69,6 +70,16 @@
     const s = String(t%60).padStart(2,"0");
     el.textContent = `${h}:${m}:${s}`;
   }, 1000);
+</script>
+<script src="js/wow-premium.js"></script>
+
+<script>
+(function(){
+  if (!window.WOWPremium) return;
+  if (WOWPremium.ResponsiveInteractions && WOWPremium.ResponsiveInteractions.init) { WOWPremium.ResponsiveInteractions.init(); }
+  if (WOWPremium.CardElevator) { WOWPremium.CardElevator.enhanceCards(".card"); }
+  if (WOWPremium.initScrollAnimations) { WOWPremium.initScrollAnimations({ sectionReveal: { scale: 0.96, opacity: 0.8, translateY: 20 } }); }
+})();
 </script>
 </body>
 </html>

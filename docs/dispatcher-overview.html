@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="css/components.css" />
 <link rel="stylesheet" href="css/layout.css" />
 <link rel="stylesheet" href="css/wow.css" />
+<link rel="stylesheet" href="css/wow-premium.css" />
 </head>
 <body class="wow-mesh">
 <div class="wow-topline"></div>
@@ -89,6 +90,18 @@
     </tr>`).join("");
   WOW.reveal("#order-rows tr", 35);
   document.querySelectorAll(".select").forEach(s => s.addEventListener("change", () => toast("Filters applied", "success")));
+</script>
+<script src="js/wow-premium.js"></script>
+
+<script>
+(function(){
+  if (!window.WOWPremium) return;
+  WOWPremium.initDispatcher();
+  if (WOWPremium.CardElevator) { WOWPremium.CardElevator.enhanceCards(".kpi-card", { baseElevation: 2, hoverElevation: 12 }); }
+  if (WOWPremium.CardElevator) { WOWPremium.CardElevator.enhanceCards(".card", { baseElevation: 1, hoverElevation: 8 }); }
+  if (WOWPremium.TopbarAnchor && WOWPremium.TopbarAnchor.createSticky) { WOWPremium.TopbarAnchor.createSticky(); }
+  document.querySelectorAll("[role='button'], .btn, .select").forEach(function(el){ el.setAttribute("data-cursor-respond",""); });
+})();
 </script>
 </body>
 </html>

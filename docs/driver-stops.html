@@ -24,6 +24,7 @@
   .route-progress { padding: 0 var(--sp-1) var(--sp-2); }
   .route-progress .lbl { display:flex; justify-content:space-between; font-size: var(--fs-100); color:#8b96a1; margin-bottom:6px; }
 </style>
+<link rel="stylesheet" href="css/wow-premium.css" />
 </head>
 <body>
 <div class="phone-frame">
@@ -67,6 +68,15 @@
   const doneCount = WP_DATA.driverStops.filter(s => s.status === "Done").length;
   document.getElementById("route-progress-txt").textContent = `${doneCount} of ${total} stops`;
   requestAnimationFrame(() => { document.getElementById("route-progress-fill").style.width = `${Math.round((doneCount/total)*100)}%`; });
+</script>
+<script src="js/wow-premium.js"></script>
+
+<script>
+(function(){
+  if (!window.WOWPremium) return;
+  if (WOWPremium.ResponsiveInteractions && WOWPremium.ResponsiveInteractions.init) { WOWPremium.ResponsiveInteractions.init(); }
+  if (WOWPremium.initScrollAnimations) { WOWPremium.initScrollAnimations({ sectionReveal: { scale: 0.96, opacity: 0.8, translateY: 20 } }); }
+})();
 </script>
 </body>
 </html>

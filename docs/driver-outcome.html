@@ -18,6 +18,7 @@
   .pod-box { border: 2px dashed var(--c-border-strong); border-radius: var(--r-lg); padding: var(--sp-6); text-align:center; color: var(--c-ink-500); transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); cursor: pointer; }
   .pod-box:hover { border-color: var(--c-brand); background: var(--c-brand-tint); }
 </style>
+<link rel="stylesheet" href="css/wow-premium.css" />
 </head>
 <body>
 <div class="phone-frame">
@@ -63,6 +64,16 @@
     toast("Outcome recorded — saved offline, will sync when connected", "success");
     setTimeout(() => window.location.href = "driver-stops.html", 900);
   });
+</script>
+<script src="js/wow-premium.js"></script>
+
+<script>
+(function(){
+  if (!window.WOWPremium) return;
+  if (WOWPremium.ResponsiveInteractions && WOWPremium.ResponsiveInteractions.init) { WOWPremium.ResponsiveInteractions.init(); }
+  if (WOWPremium.CardElevator) { WOWPremium.CardElevator.enhanceCards(".card"); }
+  if (WOWPremium.initScrollAnimations) { WOWPremium.initScrollAnimations({ sectionReveal: { scale: 0.96, opacity: 0.8, translateY: 20 } }); }
+})();
 </script>
 </body>
 </html>

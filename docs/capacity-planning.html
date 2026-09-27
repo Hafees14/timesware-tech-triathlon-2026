@@ -17,6 +17,7 @@
   .demand-cell .val { font-weight:600; white-space:nowrap; }
   .week-badge { display:inline-flex; align-items:center; gap:6px; font-weight:600; }
 </style>
+<link rel="stylesheet" href="css/wow-premium.css" />
 </head>
 <body>
 <div class="app-shell" id="app-shell"></div>
@@ -67,6 +68,16 @@
       <td>${r.reeferNeeded}</td>
     </tr>`;
   }).join("");
+</script>
+<script src="js/wow-premium.js"></script>
+
+<script>
+(function(){
+  if (!window.WOWPremium) return;
+  WOWPremium.initPage();
+  if (WOWPremium.TopbarAnchor && WOWPremium.TopbarAnchor.createSticky) { WOWPremium.TopbarAnchor.createSticky(); }
+  document.querySelectorAll("[role='button'], .btn, .select").forEach(function(el){ el.setAttribute("data-cursor-respond",""); });
+})();
 </script>
 </body>
 </html>

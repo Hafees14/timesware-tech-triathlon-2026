@@ -30,6 +30,7 @@
   .strip-stat { display: flex; align-items: center; gap: var(--sp-3); padding-right: var(--sp-6); border-right: 1px solid var(--c-border); }
   .strip-stat:last-of-type { border-right: none; padding-right: 0; }
 </style>
+<link rel="stylesheet" href="css/wow-premium.css" />
 </head>
 <body class="wow-mesh">
 <div class="wow-topline"></div>
@@ -221,6 +222,18 @@
   document.getElementById("review-btn").addEventListener("click", () => {
     window.location.href = "deferral-summary.html";
   });
+</script>
+<script src="js/wow-premium.js"></script>
+
+<script>
+(function(){
+  if (!window.WOWPremium) return;
+  WOWPremium.initPage();
+  if (WOWPremium.CardElevator) { WOWPremium.CardElevator.enhanceCards(".kpi-card", { baseElevation: 2, hoverElevation: 12 }); }
+  if (WOWPremium.CardElevator) { WOWPremium.CardElevator.enhanceCards(".card", { baseElevation: 1, hoverElevation: 8 }); }
+  if (WOWPremium.TopbarAnchor && WOWPremium.TopbarAnchor.createSticky) { WOWPremium.TopbarAnchor.createSticky(); }
+  document.querySelectorAll("[role='button'], .btn, .select").forEach(function(el){ el.setAttribute("data-cursor-respond",""); });
+})();
 </script>
 </body>
 </html>
