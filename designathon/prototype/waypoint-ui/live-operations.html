@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Live Operations — Waypoint Dispatcher</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css" />
+<link rel="stylesheet" href="css/components.css" />
+<link rel="stylesheet" href="css/layout.css" />
+</head>
+<body>
+<div class="app-shell" id="app-shell"></div>
+
+<template id="page-tpl">
+  <div class="page-head">
+    <div>
+      <h1>Live Operations</h1>
+      <div class="desc">Real-time view of vehicles on the road. Loader and driver issues surface here immediately.</div>
+    </div>
+  </div>
+
+  <div class="kpi-row kpi-4">
+    <div class="card stat"><span class="stat-label">In transit</span><span class="stat-value">2</span></div>
+    <div class="card stat"><span class="stat-label">At stop</span><span class="stat-value">1</span></div>
+    <div class="card stat"><span class="stat-label">Completed</span><span class="stat-value">1</span></div>
+    <div class="card stat"><span class="stat-label">Issues reported</span><span class="stat-value danger">1</span></div>
+  </div>
+
+  <div class="table-wrap">
+    <table class="data">
+      <thead><tr>
+        <th>Vehicle</th><th>Driver</th><th>Trip</th><th>Current stop</th><th>Progress</th><th>ETA</th><th>Status</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+</template>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+  mountDispatcherShell("live");
+  document.getElementById("content").innerHTML = document.getElementById("page-tpl").innerHTML;
+
+  const statusMap = {
+    "In Transit": "badge-info", "At Stop": "badge-brand", "Completed": "badge-success", "Issue Reported": "badge-danger"
+  };
+  document.getElementById("rows").innerHTML = WP_DATA.trips.map(t => `
+    <tr class="${t.status === 'Issue Reported' ? 'row-flagged' : ''}">
+      <td class="mono">${t.vehicle}</td>
+      <td>${t.driver}</td>
+      <td>${t.trip}</td>
+      <td>${t.stop}</td>
+      <td style="min-width:140px;"><div class="progress ${t.status==='Issue Reported'?'danger':t.status==='Completed'?'success':''}"><span style="width:${t.progress}%"></span></div></td>
+      <td>${t.eta}</td>
+      <td><span class="badge ${statusMap[t.status]}">${t.status}</span></td>
+    </tr>`).join("");
+</script>
+</body>
+</html>

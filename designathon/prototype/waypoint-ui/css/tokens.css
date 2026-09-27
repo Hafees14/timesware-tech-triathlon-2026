@@ -1,0 +1,114 @@
+/* ==========================================================================
+   WAYPOINT DESIGN SYSTEM — TOKENS
+   Premium enterprise logistics visual language.
+   ========================================================================== */
+
+:root {
+  /* ---- Color: neutrals (warm graphite, not pure black/white) ---- */
+  --c-ink-900: #14181e;
+  --c-ink-800: #1c222a;
+  --c-ink-700: #2a323c;
+  --c-ink-600: #414c59;
+  --c-ink-500: #5b6874;
+  --c-ink-400: #7c8894;
+  --c-ink-300: #a7afb8;
+  --c-ink-200: #ced3d8;
+  --c-ink-100: #e7e9eb;
+  --c-surface-0: #ffffff;
+  --c-surface-1: #f7f7f5;
+  --c-surface-2: #eeefec;
+  --c-surface-3: #e4e6e1;
+  --c-border: #dcdfe0;
+  --c-border-strong: #c3c8cb;
+
+  /* ---- Color: brand ---- */
+  --c-brand: #b3730a;        /* Waypoint amber — wayfinding signal, used sparingly */
+  --c-brand-ink: #7a4d05;
+  --c-brand-tint: #fbeed9;
+  --c-navy: #101720;         /* sidebar / chrome */
+  --c-navy-raised: #182130;
+
+  /* ---- Color: status (reserved exclusively for state, never decoration) ---- */
+  --c-success: #1c8a56;
+  --c-success-tint: #e2f4ea;
+  --c-warning: #b5680a;
+  --c-warning-tint: #fbecd7;
+  --c-danger: #c23b3b;
+  --c-danger-tint: #fbe6e6;
+  --c-info: #2472a4;
+  --c-info-tint: #e3f0f6;
+  --c-chilled: #1f7a8c;      /* cold-chain indicator */
+  --c-chilled-tint: #e1f1f4;
+  --c-neutral-badge: #5b6874;
+  --c-neutral-badge-tint: #eceeef;
+
+  /* ---- Typography ---- */
+  --f-ui: "Inter", -apple-system, "Segoe UI", sans-serif;
+  --f-display: "Space Grotesk", "Inter", sans-serif;
+  --f-mono: "IBM Plex Mono", "SFMono-Regular", monospace;
+
+  --fs-100: 0.75rem;   /* 12px micro labels */
+  --fs-200: 0.8125rem; /* 13px table/meta */
+  --fs-300: 0.875rem;  /* 14px body small / UI default */
+  --fs-400: 1rem;      /* 16px body */
+  --fs-500: 1.125rem;  /* 18px section title */
+  --fs-600: 1.375rem;  /* 22px page title */
+  --fs-700: 1.75rem;   /* 28px hero number */
+  --fs-800: 2.25rem;   /* 36px KPI */
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  --lh-tight: 1.2;
+  --lh-normal: 1.5;
+
+  /* ---- Spacing (4px base scale) ---- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-7: 32px;
+  --sp-8: 40px;
+  --sp-9: 56px;
+
+  /* ---- Radius ---- */
+  --r-sm: 4px;
+  --r-md: 6px;
+  --r-lg: 10px;
+  --r-pill: 999px;
+
+  /* ---- Shadow (restrained — used for elevation, never decoration) ---- */
+  --sh-1: 0 1px 2px rgba(20, 24, 30, 0.06);
+  --sh-2: 0 2px 8px rgba(20, 24, 30, 0.08);
+  --sh-3: 0 8px 24px rgba(20, 24, 30, 0.14);
+
+  /* ---- Motion ---- */
+  --dur-fast: 120ms;
+  --dur-med: 200ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+
+  /* ---- Layout ---- */
+  --sidebar-w: 232px;
+  --topbar-h: 60px;
+  --content-max: 1400px;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--f-ui);
+  font-size: var(--fs-300);
+  color: var(--c-ink-900);
+  background: var(--c-surface-1);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { font-family: var(--f-display); margin: 0; line-height: var(--lh-tight); }
+p { margin: 0; }
+a { color: inherit; }
+button { font-family: inherit; }
+:focus-visible { outline: 2px solid var(--c-brand); outline-offset: 2px; }

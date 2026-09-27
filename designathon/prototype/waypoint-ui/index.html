@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Waypoint — Intelligent Delivery Planning &amp; Operations</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css" />
+<link rel="stylesheet" href="css/components.css" />
+<link rel="stylesheet" href="css/layout.css" />
+<style>
+  body { background: var(--c-navy); color: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+  .hub { max-width: 880px; width: 100%; padding: var(--sp-7); }
+  .hub h1 { font-size: 2.6rem; margin-bottom: 6px; }
+  .hub p.lead { color: #aab3bd; margin-bottom: var(--sp-7); max-width: 560px; }
+  .role-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); }
+  .role-card { background: var(--c-navy-raised); border: 1px solid #26303c; border-radius: var(--r-lg); padding: var(--sp-5); text-decoration: none; color: #fff; display: flex; flex-direction: column; gap: var(--sp-2); transition: transform var(--dur-med) var(--ease), border-color var(--dur-med) var(--ease); }
+  .role-card:hover { transform: translateY(-2px); border-color: var(--c-brand); }
+  .role-card .tag { font-size: var(--fs-100); text-transform: uppercase; letter-spacing: 0.04em; color: var(--c-brand); font-weight: 700; }
+  .role-card h3 { font-size: var(--fs-500); }
+  .role-card p { color: #9aa4ae; font-size: var(--fs-200); }
+  @media (max-width: 800px) { .role-grid { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+  <div class="hub">
+    <h1>Waypoint</h1>
+    <p class="lead">Intelligent Delivery Planning &amp; Operations System — Team Timesware, Tech-Triathlon 2026. Pick a role to open its experience.</p>
+    <div class="role-grid">
+      <a class="role-card" href="dispatcher-overview.html">
+        <span class="tag">Desktop</span>
+        <h3>Dispatcher</h3>
+        <p>Order queue, allocation, capacity shortfall, live ops, deferrals.</p>
+      </a>
+      <a class="role-card" href="loader-dock.html">
+        <span class="tag">Tablet</span>
+        <h3>Loader</h3>
+        <p>Dock queue, stop-sequence loading, shortfall &amp; damage flags.</p>
+      </a>
+      <a class="role-card" href="driver-stops.html">
+        <span class="tag">Phone</span>
+        <h3>Driver</h3>
+        <p>Today's stops, stop detail, proof of delivery, offline sync.</p>
+      </a>
+      <a class="role-card" href="store-order.html">
+        <span class="tag">Responsive</span>
+        <h3>Store Manager</h3>
+        <p>Place order, confirmation, delivery status, receipt confirmation.</p>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
