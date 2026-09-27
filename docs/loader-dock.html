@@ -11,15 +11,16 @@
 <link rel="stylesheet" href="css/layout.css" />
 <style>
   body { background: var(--c-surface-1); }
-  .tb-top { background: var(--c-navy); color:#fff; padding: var(--sp-4) var(--sp-6); display:flex; justify-content:space-between; align-items:center; }
+  .tb-top { background: var(--c-navy-grad); color:#fff; padding: var(--sp-4) var(--sp-6); display:flex; justify-content:space-between; align-items:center; box-shadow: var(--sh-2); position: sticky; top:0; z-index: 5; }
   .tb-top .name { font-family: var(--f-display); font-weight:700; font-size: var(--fs-500); }
-  .dock-card { background: var(--c-surface-0); border:1px solid var(--c-border); border-radius: var(--r-lg); padding: var(--sp-5); display:flex; justify-content:space-between; align-items:center; gap: var(--sp-4); margin-bottom: var(--sp-4); }
+  .dock-card { background: var(--c-surface-0); border:1px solid var(--c-border); border-radius: var(--r-lg); box-shadow: var(--sh-1); transition: box-shadow var(--dur-med) var(--ease), transform var(--dur-med) var(--ease); padding: var(--sp-5); display:flex; justify-content:space-between; align-items:center; gap: var(--sp-4); margin-bottom: var(--sp-4); }
+  .dock-card:hover { box-shadow: var(--sh-2); transform: translateY(-1px); }
   .dock-card .veh { font-family: var(--f-display); font-size: var(--fs-600); font-weight:700; }
 </style>
 </head>
 <body>
   <div class="tb-top">
-    <div class="name">Waypoint <span class="chip" style="margin-left:6px;">Loader</span></div>
+    <div class="name">Waypoint &middot; Loader</div>
     <div class="flex gap-3 items-center"><span class="chip" style="background:rgba(255,255,255,.08); color:#fff;">Peliyagoda Dock</span><div class="avatar">SL</div></div>
   </div>
   <div class="tablet-frame content">
@@ -43,7 +44,7 @@
         <div class="veh">${d.vehicle}</div>
         <div>
           <div style="font-weight:600;">${d.trip}</div>
-          <div class="small muted meta-row"><span>Departs ${d.departure}</span><span>${d.brand}</span><span>${d.district}</span></div>
+          <div class="small muted">Departs ${d.departure} &middot; ${d.brand} &middot; ${d.district}</div>
         </div>
       </div>
       <div class="flex gap-4 items-center">

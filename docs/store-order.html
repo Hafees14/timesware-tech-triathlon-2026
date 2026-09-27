@@ -10,18 +10,19 @@
 <link rel="stylesheet" href="css/components.css" />
 <link rel="stylesheet" href="css/layout.css" />
 <style>
-  .sm-top { background: var(--c-surface-0); border-bottom: 1px solid var(--c-border); padding: var(--sp-4) var(--sp-6); display:flex; justify-content:space-between; align-items:center; }
-  .sm-wrap { max-width: 640px; margin: 0 auto; padding: var(--sp-6); display:flex; flex-direction:column; gap: var(--sp-5); }
-  .cutoff-card { background: var(--c-navy); color:#fff; border-radius: var(--r-lg); padding: var(--sp-5); display:flex; justify-content:space-between; align-items:center; }
-  .cutoff-timer { font-family: var(--f-mono); font-size: var(--fs-700); font-weight:700; }
+  .sm-top { background: rgba(255,255,255,.85); backdrop-filter: blur(8px); border-bottom: 1px solid var(--c-border); padding: var(--sp-4) var(--sp-6); display:flex; justify-content:space-between; align-items:center; position: sticky; top:0; z-index:5; }
+  .sm-wrap { max-width: 640px; margin: 0 auto; padding: var(--sp-6); display:flex; flex-direction:column; gap: var(--sp-5); animation: wp-rise 420ms cubic-bezier(0.2,0,0,1) both; }
+  .cutoff-card { background: var(--c-navy-grad); color:#fff; border-radius: var(--r-lg); padding: var(--sp-5); display:flex; justify-content:space-between; align-items:center; box-shadow: var(--sh-2); position: relative; overflow: hidden; }
+  .cutoff-card::before { content:""; position:absolute; top:0; left:0; right:0; height:3px; background: var(--c-brand-grad); }
+  .cutoff-timer { font-family: var(--f-mono); font-size: var(--fs-700); font-weight:700; letter-spacing: 0.02em; }
   .qty-row { display:flex; justify-content:space-between; align-items:center; padding: var(--sp-3) 0; border-bottom: 1px solid var(--c-border); }
   .qty-row:last-child { border-bottom:none; }
 </style>
 </head>
 <body>
   <div class="sm-top">
-    <div class="flex gap-2 items-center"><div class="avatar" style="background:var(--c-brand);">W</div><strong>Waypoint</strong> <span class="chip">Store</span></div>
-    <div class="flex gap-2 items-center"><span class="meta-row"><span>Fathima</span><span>Nugegoda Fresh Corner</span></span></div>
+    <div class="flex gap-2 items-center"><div class="avatar" style="background:var(--c-brand);">W</div><strong>Waypoint &middot; Store</strong></div>
+    <div class="flex gap-2 items-center"><span class="chip">Fathima &middot; Nugegoda Fresh Corner</span></div>
   </div>
   <div class="sm-wrap">
     <div class="page-head" style="align-items:flex-start;">

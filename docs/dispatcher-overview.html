@@ -54,12 +54,13 @@
 
   const c = WP_DATA.capacity;
   document.getElementById("kpis").innerHTML = `
-    <div class="card stat"><span class="stat-label">Confirmed orders</span><span class="stat-value">${c.confirmedOrders}</span></div>
-    <div class="card stat"><span class="stat-label">Total demand</span><span class="stat-value">142 m³</span><span class="stat-sub">61,400 kg</span></div>
-    <div class="card stat"><span class="stat-label">Fleet capacity</span><span class="stat-value">${c.availableVehicles}</span><span class="stat-sub">vehicles available today</span></div>
-    <div class="card stat"><span class="stat-label">Refrigerated</span><span class="stat-value ${c.reeferUsed>=c.reeferTotal?'danger':'warn'}">${c.reeferUsed}/${c.reeferTotal}</span><span class="stat-sub">reefer slots committed</span></div>
-    <div class="card stat"><span class="stat-label">At-risk orders</span><span class="stat-value danger">${c.atRisk}</span><span class="stat-sub"><a href="dispatcher-allocation.html" style="color:var(--c-danger);text-decoration:underline;">Review in Planning</a></span></div>
+    <div class="kpi-card tone-brand"><div class="kpi-top"><span class="stat-label">Confirmed orders</span><div class="kpi-icon tone-brand">${ic("list")}</div></div><span class="stat-value">${c.confirmedOrders}</span></div>
+    <div class="kpi-card"><div class="kpi-top"><span class="stat-label">Total demand</span><div class="kpi-icon tone-neutral">${ic("grid")}</div></div><span class="stat-value">142 m³</span><span class="stat-sub">61,400 kg</span></div>
+    <div class="kpi-card tone-success"><div class="kpi-top"><span class="stat-label">Fleet capacity</span><div class="kpi-icon tone-success">${ic("route")}</div></div><span class="stat-value">${c.availableVehicles}</span><span class="stat-sub">vehicles available today</span></div>
+    <div class="kpi-card ${c.reeferUsed>=c.reeferTotal?'tone-danger':'tone-warn'}"><div class="kpi-top"><span class="stat-label">Refrigerated</span><div class="kpi-icon ${c.reeferUsed>=c.reeferTotal?'tone-danger':'tone-warn'}">${ic("pulse")}</div></div><span class="stat-value ${c.reeferUsed>=c.reeferTotal?'danger':'warn'}">${c.reeferUsed}/${c.reeferTotal}</span><span class="stat-sub">reefer slots committed</span></div>
+    <div class="kpi-card tone-danger"><div class="kpi-top"><span class="stat-label">At-risk orders</span><div class="kpi-icon tone-danger">${ic("bell")}</div></div><span class="stat-value danger">${c.atRisk}</span><span class="stat-sub"><a href="dispatcher-allocation.html" style="color:var(--c-danger);text-decoration:underline;">Review in Planning</a></span></div>
   `;
+  staggerIn("#kpis", 60);
 
   const statusBadge = s => s === "Confirmed"
     ? `<span class="badge badge-success"><span class="badge-dot"></span>Confirmed</span>`
@@ -80,6 +81,7 @@
       <td>${o.access}</td>
       <td>${statusBadge(o.status)}</td>
     </tr>`).join("");
+  document.querySelectorAll(".select").forEach(s => s.addEventListener("change", () => toast("Filters applied", "success")));
 </script>
 </body>
 </html>

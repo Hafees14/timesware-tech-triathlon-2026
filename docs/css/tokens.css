@@ -1,14 +1,14 @@
 /* ==========================================================================
-   WAYPOINT DESIGN SYSTEM — TOKENS
+   WAYPOINT DESIGN SYSTEM — TOKENS  (v2, commercial-grade)
    Premium enterprise logistics visual language.
    ========================================================================== */
 
 :root {
   /* ---- Color: neutrals (warm graphite, not pure black/white) ---- */
-  --c-ink-900: #14181e;
-  --c-ink-800: #1c222a;
-  --c-ink-700: #2a323c;
-  --c-ink-600: #414c59;
+  --c-ink-900: #12151b;
+  --c-ink-800: #1a1f27;
+  --c-ink-700: #262e38;
+  --c-ink-600: #3d4753;
   --c-ink-500: #5b6874;
   --c-ink-400: #7c8894;
   --c-ink-300: #a7afb8;
@@ -18,26 +18,31 @@
   --c-surface-1: #f7f7f5;
   --c-surface-2: #eeefec;
   --c-surface-3: #e4e6e1;
-  --c-border: #dcdfe0;
+  --c-border: #e0e2e1;
   --c-border-strong: #c3c8cb;
 
   /* ---- Color: brand ---- */
-  --c-brand: #b3730a;        /* Waypoint amber — wayfinding signal, used sparingly */
+  --c-brand: #b3730a;
+  --c-brand-hi: #d68f1f;
   --c-brand-ink: #7a4d05;
   --c-brand-tint: #fbeed9;
-  --c-navy: #101720;         /* sidebar / chrome */
+  --c-brand-grad: linear-gradient(135deg, #c9840f 0%, #a8690a 100%);
+  --c-navy: #0e141d;
   --c-navy-raised: #182130;
+  --c-navy-grad: linear-gradient(165deg, #131a24 0%, #0b0f15 100%);
 
   /* ---- Color: status (reserved exclusively for state, never decoration) ---- */
   --c-success: #1c8a56;
+  --c-success-hi: #22a366;
   --c-success-tint: #e2f4ea;
   --c-warning: #b5680a;
   --c-warning-tint: #fbecd7;
   --c-danger: #c23b3b;
+  --c-danger-hi: #d94848;
   --c-danger-tint: #fbe6e6;
   --c-info: #2472a4;
   --c-info-tint: #e3f0f6;
-  --c-chilled: #1f7a8c;      /* cold-chain indicator */
+  --c-chilled: #1f7a8c;
   --c-chilled-tint: #e1f1f4;
   --c-neutral-badge: #5b6874;
   --c-neutral-badge-tint: #eceeef;
@@ -47,14 +52,14 @@
   --f-display: "Space Grotesk", "Inter", sans-serif;
   --f-mono: "IBM Plex Mono", "SFMono-Regular", monospace;
 
-  --fs-100: 0.75rem;   /* 12px micro labels */
-  --fs-200: 0.8125rem; /* 13px table/meta */
-  --fs-300: 0.875rem;  /* 14px body small / UI default */
-  --fs-400: 1rem;      /* 16px body */
-  --fs-500: 1.125rem;  /* 18px section title */
-  --fs-600: 1.375rem;  /* 22px page title */
-  --fs-700: 1.75rem;   /* 28px hero number */
-  --fs-800: 2.25rem;   /* 36px KPI */
+  --fs-100: 0.75rem;
+  --fs-200: 0.8125rem;
+  --fs-300: 0.875rem;
+  --fs-400: 1rem;
+  --fs-500: 1.125rem;
+  --fs-600: 1.375rem;
+  --fs-700: 1.75rem;
+  --fs-800: 2.25rem;
 
   --fw-regular: 400;
   --fw-medium: 500;
@@ -76,24 +81,29 @@
   --sp-9: 56px;
 
   /* ---- Radius ---- */
-  --r-sm: 4px;
-  --r-md: 6px;
-  --r-lg: 10px;
+  --r-sm: 5px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
   --r-pill: 999px;
 
   /* ---- Shadow (restrained — used for elevation, never decoration) ---- */
-  --sh-1: 0 1px 2px rgba(20, 24, 30, 0.06);
-  --sh-2: 0 2px 8px rgba(20, 24, 30, 0.08);
-  --sh-3: 0 8px 24px rgba(20, 24, 30, 0.14);
+  --sh-1: 0 1px 2px rgba(20, 24, 30, 0.05), 0 1px 1px rgba(20,24,30,0.04);
+  --sh-2: 0 4px 14px rgba(20, 24, 30, 0.07), 0 1px 3px rgba(20,24,30,0.06);
+  --sh-3: 0 16px 40px rgba(16, 20, 28, 0.16), 0 4px 12px rgba(16,20,28,0.08);
+  --sh-brand: 0 8px 20px rgba(179, 115, 10, 0.25);
+  --sh-inset-top: inset 0 1px 0 rgba(255,255,255,0.6);
 
   /* ---- Motion ---- */
   --dur-fast: 120ms;
   --dur-med: 200ms;
+  --dur-slow: 420ms;
   --ease: cubic-bezier(0.2, 0, 0, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* ---- Layout ---- */
-  --sidebar-w: 232px;
-  --topbar-h: 60px;
+  --sidebar-w: 240px;
+  --topbar-h: 64px;
   --content-max: 1400px;
 }
 
@@ -106,9 +116,23 @@ body {
   color: var(--c-ink-900);
   background: var(--c-surface-1);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
-h1, h2, h3, h4 { font-family: var(--f-display); margin: 0; line-height: var(--lh-tight); }
+h1, h2, h3, h4 { font-family: var(--f-display); margin: 0; line-height: var(--lh-tight); letter-spacing: -0.01em; }
 p { margin: 0; }
 a { color: inherit; }
 button { font-family: inherit; }
-:focus-visible { outline: 2px solid var(--c-brand); outline-offset: 2px; }
+:focus-visible { outline: 2px solid var(--c-brand); outline-offset: 2px; border-radius: 3px; }
+::selection { background: var(--c-brand-tint); color: var(--c-brand-ink); }
+
+/* thin, quiet scrollbars for panels */
+.panel-scroll::-webkit-scrollbar, .sidebar-nav::-webkit-scrollbar { width: 6px; }
+.panel-scroll::-webkit-scrollbar-track, .sidebar-nav::-webkit-scrollbar-track { background: transparent; }
+.panel-scroll::-webkit-scrollbar-thumb { background: var(--c-border-strong); border-radius: 4px; }
+.sidebar-nav::-webkit-scrollbar-thumb { background: #2a333f; border-radius: 4px; }
+
+/* shared entrance animation, triggered by app.js on mount */
+@keyframes wp-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.wp-animate-in { animation: wp-rise var(--dur-slow) var(--ease) both; }
+@keyframes wp-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes wp-pulse-ring { 0% { box-shadow: 0 0 0 0 currentColor; opacity: .55; } 100% { box-shadow: 0 0 0 6px currentColor; opacity: 0; } }

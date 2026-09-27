@@ -86,6 +86,20 @@ function toast(msg, variant) {
   setTimeout(() => el.remove(), 3200);
 }
 
+/* Stagger a subtle rise-in across a container's direct children (KPI rows, cards) */
+function staggerIn(selectorOrEl, delayStep) {
+  const root = typeof selectorOrEl === "string" ? document.querySelector(selectorOrEl) : selectorOrEl;
+  if (!root) return;
+  Array.from(root.children).forEach((child, i) => {
+    child.style.animation = "none";
+    child.style.opacity = "0";
+    requestAnimationFrame(() => {
+      child.style.animation = `wp-rise 420ms cubic-bezier(0.2,0,0,1) both`;
+      child.style.animationDelay = `${i * (delayStep || 60)}ms`;
+    });
+  });
+}
+
 /* Offline/sync simulation used on driver + loader screens */
 function simulateOfflineCycle(barId) {
   const bar = document.getElementById(barId);

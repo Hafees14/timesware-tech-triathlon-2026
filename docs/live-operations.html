@@ -21,11 +21,11 @@
     </div>
   </div>
 
-  <div class="kpi-row kpi-4">
-    <div class="card stat"><span class="stat-label">In transit</span><span class="stat-value">2</span></div>
-    <div class="card stat"><span class="stat-label">At stop</span><span class="stat-value">1</span></div>
-    <div class="card stat"><span class="stat-label">Completed</span><span class="stat-value">1</span></div>
-    <div class="card stat"><span class="stat-label">Issues reported</span><span class="stat-value danger">1</span></div>
+  <div class="kpi-row kpi-4" id="kpis">
+    <div class="kpi-card tone-brand"><div class="kpi-top"><span class="stat-label">In transit</span><div class="kpi-icon tone-brand" id="ic-transit"></div></div><span class="stat-value">2</span></div>
+    <div class="kpi-card tone-warn"><div class="kpi-top"><span class="stat-label">At stop</span><div class="kpi-icon tone-warn" id="ic-stop"></div></div><span class="stat-value">1</span></div>
+    <div class="kpi-card tone-success"><div class="kpi-top"><span class="stat-label">Completed</span><div class="kpi-icon tone-success" id="ic-done"></div></div><span class="stat-value">1</span></div>
+    <div class="kpi-card tone-danger"><div class="kpi-top"><span class="stat-label">Issues reported</span><div class="kpi-icon tone-danger" id="ic-issue"></div></div><span class="stat-value danger">1</span></div>
   </div>
 
   <div class="table-wrap">
@@ -43,10 +43,16 @@
 <script>
   mountDispatcherShell("live");
   document.getElementById("content").innerHTML = document.getElementById("page-tpl").innerHTML;
+  document.getElementById("ic-transit").innerHTML = ic("route");
+  document.getElementById("ic-stop").innerHTML = ic("pin");
+  document.getElementById("ic-done").innerHTML = ic("bell");
+  document.getElementById("ic-issue").innerHTML = ic("bell");
+  staggerIn("#kpis", 60);
 
   const statusMap = {
     "In Transit": "badge-info", "At Stop": "badge-brand", "Completed": "badge-success", "Issue Reported": "badge-danger"
   };
+  const liveDot = s => (s === "In Transit" || s === "Issue Reported") ? '<span class="badge-dot live"></span>' : '<span class="badge-dot"></span>';
   document.getElementById("rows").innerHTML = WP_DATA.trips.map(t => `
     <tr class="${t.status === 'Issue Reported' ? 'row-flagged' : ''}">
       <td class="mono">${t.vehicle}</td>
@@ -55,7 +61,7 @@
       <td>${t.stop}</td>
       <td style="min-width:140px;"><div class="progress ${t.status==='Issue Reported'?'danger':t.status==='Completed'?'success':''}"><span style="width:${t.progress}%"></span></div></td>
       <td>${t.eta}</td>
-      <td><span class="badge ${statusMap[t.status]}">${t.status}</span></td>
+      <td><span class="badge ${statusMap[t.status]}">${liveDot(t.status)}${t.status}</span></td>
     </tr>`).join("");
 </script>
 </body>

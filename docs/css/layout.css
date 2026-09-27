@@ -2,9 +2,9 @@
    WAYPOINT DESIGN SYSTEM — LAYOUT
    ========================================================================== */
 
-.app-shell { display: flex; min-height: 100vh; }
+.app-shell { display: flex; min-height: 100vh; background: var(--c-surface-1); }
 .main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-.content { padding: var(--sp-6); max-width: var(--content-max); width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: var(--sp-6); }
+.content { padding: var(--sp-6); max-width: var(--content-max); width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: var(--sp-6); animation: wp-rise var(--dur-slow) var(--ease) both; }
 
 .page-head { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: var(--sp-3); }
 .page-head h1 { font-size: var(--fs-600); }
@@ -21,12 +21,13 @@
 
 /* Mobile driver frame */
 .phone-frame { max-width: 420px; margin: 0 auto; min-height: 100vh; background: var(--c-surface-1); display: flex; flex-direction: column; box-shadow: var(--sh-3); }
-.phone-top { padding: var(--sp-4) var(--sp-5) var(--sp-3); background: var(--c-surface-0); border-bottom: 1px solid var(--c-border); }
-.phone-body { padding: var(--sp-4); flex: 1; display: flex; flex-direction: column; gap: var(--sp-3); }
-.phone-cta-bar { position: sticky; bottom: 0; background: var(--c-surface-0); border-top: 1px solid var(--c-border); padding: var(--sp-4); }
+.phone-top { padding: var(--sp-4) var(--sp-5) var(--sp-3); background: var(--c-surface-0); border-bottom: 1px solid var(--c-border); position: relative; z-index: 2; }
+.phone-body { padding: var(--sp-4); flex: 1; display: flex; flex-direction: column; gap: var(--sp-3); animation: wp-rise var(--dur-slow) var(--ease) both; }
+.phone-cta-bar { position: sticky; bottom: 0; background: var(--c-surface-0); border-top: 1px solid var(--c-border); padding: var(--sp-4); box-shadow: 0 -8px 20px rgba(0,0,0,.05); }
 
 /* Tablet loader frame */
-.tablet-frame { max-width: 900px; margin: 0 auto; }
+.tablet-frame { max-width: 960px; margin: 0 auto; }
+.tablet-frame .content { animation: wp-rise var(--dur-slow) var(--ease) both; }
 
 @media (max-width: 1100px) {
   .grid-3col { grid-template-columns: 1fr; }

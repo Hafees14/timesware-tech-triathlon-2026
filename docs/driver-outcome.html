@@ -11,9 +11,12 @@
 <link rel="stylesheet" href="css/layout.css" />
 <style>
   body { background: var(--c-ink-900); }
-  .outcome-btn { padding: 22px; font-size: var(--fs-500); border-radius: var(--r-lg); }
-  .outcome-btn.selected { outline: 3px solid var(--c-navy); }
-  .pod-box { border: 2px dashed var(--c-border-strong); border-radius: var(--r-lg); padding: var(--sp-6); text-align:center; color: var(--c-ink-500); }
+  .phone-top { background: var(--c-navy-grad); border-bottom: none; color: #fff; }
+  .phone-top a { color: #8b96a1 !important; }
+  .outcome-btn { padding: 20px; font-size: var(--fs-500); border-radius: var(--r-lg); transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease); }
+  .outcome-btn.selected { outline: 3px solid var(--c-navy); transform: scale(1.01); }
+  .pod-box { border: 2px dashed var(--c-border-strong); border-radius: var(--r-lg); padding: var(--sp-6); text-align:center; color: var(--c-ink-500); transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); cursor: pointer; }
+  .pod-box:hover { border-color: var(--c-brand); background: var(--c-brand-tint); }
 </style>
 </head>
 <body>

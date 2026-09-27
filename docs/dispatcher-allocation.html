@@ -23,6 +23,11 @@
   .shortfall-banner { display: none; }
   .shortfall-banner.show { display: block; }
   .defer-reason-list button { display: block; width: 100%; text-align: left; }
+  .shortfall-stats { display: flex; gap: var(--sp-2); flex-wrap: wrap; margin-top: var(--sp-3); }
+  .shortfall-stats .sf-pill { background: rgba(255,255,255,.65); border-radius: var(--r-pill); padding: 6px 14px; font-size: var(--fs-200); font-weight: var(--fw-semibold); }
+  .shortfall-stats .sf-pill b { font-family: var(--f-display); margin-right: 4px; }
+  .strip-stat { display: flex; align-items: center; gap: var(--sp-3); padding-right: var(--sp-6); border-right: 1px solid var(--c-border); }
+  .strip-stat:last-of-type { border-right: none; padding-right: 0; }
 </style>
 </head>
 <body>
@@ -32,7 +37,7 @@
   <div class="page-head">
     <div>
       <h1>Allocation &amp; Planning</h1>
-      <div class="desc">Peliyagoda depot — assigning confirmed orders to vehicles and trips for tomorrow's Fresh run.</div>
+      <div class="desc">Peliyagoda depot &middot; assigning confirmed orders to vehicles and trips for tomorrow's Fresh run.</div>
     </div>
     <div class="flex gap-2">
       <button class="btn btn-secondary" id="toggle-shortfall">Simulate Capacity Shortfall</button>
@@ -40,30 +45,31 @@
   </div>
 
   <!-- CAPACITY SHORTFALL BANNER (degradation scenario) -->
-  <div class="alert shortfall-banner" id="shortfall-banner">
+  <div class="alert alert-danger shortfall-banner" id="shortfall-banner">
     <div class="alert-icon"><span class="ic-svg" style="display:inline-flex;vertical-align:-2px;"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.2l6.5 11.3H1.5L8 2.2z"/><path d="M8 6.6v3.2M8 11.6v.1"/></svg></span></div>
     <div style="flex:1;">
-      <div class="alert-title">Today can't serve every order</div>
-      <p style="margin-top:4px;">Binding constraint: 3 of 16 refrigerated vehicles are out for workshop maintenance, and Gampaha's Fresh trips run over the 270-minute pre-dawn budget.</p>
-      <div class="shortfall-figures">
-        <div class="sf-item"><span class="sf-num">86</span><span class="sf-lbl">confirmed orders</span></div>
-        <div class="sf-item warn"><span class="sf-num">13/16</span><span class="sf-lbl">refrigerated capacity</span></div>
-        <div class="sf-item"><span class="sf-num">6/8</span><span class="sf-lbl">van capacity</span></div>
-        <div class="sf-item danger"><span class="sf-num">12</span><span class="sf-lbl">orders at risk</span></div>
+      <div class="alert-title">CAPACITY SHORTFALL</div>
+      <p>Today's demand exceeds available capacity.</p>
+      <p style="margin-top:6px;"><strong>Binding constraint:</strong> 3 of 16 refrigerated vehicles are unavailable (workshop maintenance). Gampaha Fresh trips also exceed the 270-minute pre-dawn budget.</p>
+      <div class="shortfall-stats">
+        <span class="sf-pill"><b>86</b>confirmed orders</span>
+        <span class="sf-pill"><b>13/16</b>refrigerated capacity</span>
+        <span class="sf-pill"><b>6/8</b>van capacity</span>
+        <span class="sf-pill" style="color:var(--c-danger);"><b>12</b>orders at risk</span>
       </div>
     </div>
   </div>
 
   <div class="card">
-    <div class="flex justify-between items-center">
-      <div class="flex gap-6" style="flex-wrap:wrap;">
-        <div class="stat"><span class="stat-label">Confirmed orders</span><span class="stat-value" style="font-size:1.5rem;">86</span></div>
-        <div class="stat"><span class="stat-label">Available vehicles</span><span class="stat-value" style="font-size:1.5rem;">48</span></div>
-        <div class="stat"><span class="stat-label">Refrigerated slots</span><span class="stat-value warn" style="font-size:1.5rem;">13 / 16</span></div>
-        <div class="stat"><span class="stat-label">Van slots</span><span class="stat-value" style="font-size:1.5rem;">6 / 8</span></div>
-        <div class="stat"><span class="stat-label">At risk</span><span class="stat-value danger" style="font-size:1.5rem;">12</span></div>
+    <div class="flex justify-between items-center" style="flex-wrap:wrap; gap: var(--sp-4);">
+      <div class="flex" style="flex-wrap:wrap;">
+        <div class="strip-stat"><div class="kpi-icon tone-neutral" id="ic-strip-list"></div><div class="stat"><span class="stat-label">Confirmed</span><span class="stat-value" style="font-size:1.5rem;">86</span></div></div>
+        <div class="strip-stat"><div class="kpi-icon tone-success" id="ic-strip-route"></div><div class="stat"><span class="stat-label">Vehicles</span><span class="stat-value" style="font-size:1.5rem;">48</span></div></div>
+        <div class="strip-stat"><div class="kpi-icon tone-warn" id="ic-strip-pulse"></div><div class="stat"><span class="stat-label">Refrigerated</span><span class="stat-value warn" style="font-size:1.5rem;">13/16</span></div></div>
+        <div class="strip-stat"><div class="kpi-icon tone-neutral" id="ic-strip-grid"></div><div class="stat"><span class="stat-label">Van slots</span><span class="stat-value" style="font-size:1.5rem;">6/8</span></div></div>
+        <div class="strip-stat"><div class="kpi-icon tone-danger" id="ic-strip-bell"></div><div class="stat"><span class="stat-label">At risk</span><span class="stat-value danger" style="font-size:1.5rem;">12</span></div></div>
       </div>
-      <button class="btn btn-brand" id="review-btn">Review 12 deferrals</button>
+      <button class="btn btn-brand" id="review-btn">12 orders will be deferred &middot; Review Deferrals</button>
     </div>
   </div>
 
@@ -77,10 +83,10 @@
     <!-- CENTER: vehicle/trip workspace -->
     <div class="flex-col gap-4">
       <div class="card">
-        <div class="card-title"><span class="meta-row"><span>Colombo Fresh</span><span>VEH014</span><span>Reefer truck</span></span></div>
+        <div class="card-title">Colombo Fresh &middot; VEH014 (Reefer truck)</div>
         <div class="trip-card" style="margin:0; border:none; padding:0;">
-          <div class="trip-order-row"><span>Peliyagoda Supermarket <span class="small muted">ORD-4471</span></span><span class="badge badge-chilled">Chilled</span></div>
-          <div class="trip-order-row"><span>Nugegoda Fresh Corner <span class="small muted">ORD-4474</span></span><span class="badge badge-chilled">Chilled</span></div>
+          <div class="trip-order-row"><span>Peliyagoda Supermarket &middot; ORD-4471</span><span class="badge badge-chilled">Chilled</span></div>
+          <div class="trip-order-row"><span>Nugegoda Fresh Corner &middot; ORD-4474</span><span class="badge badge-chilled">Chilled</span></div>
           <div class="cap-meter-row">
             <div class="cap-meter"><div class="lbl"><span>Volume</span><span>7.8 / 12 m³</span></div><div class="progress"><span style="width:65%"></span></div></div>
             <div class="cap-meter"><div class="lbl"><span>Weight</span><span>1,130 / 3,000 kg</span></div><div class="progress"><span style="width:38%"></span></div></div>
@@ -96,10 +102,10 @@
       </div>
 
       <div class="card">
-        <div class="card-title"><span class="meta-row"><span>Gampaha Fresh</span><span>VEH021</span><span>Reefer truck</span></span></div>
+        <div class="card-title">Gampaha Fresh &middot; VEH021 (Reefer truck)</div>
         <div class="trip-card" style="margin:0; border:none; padding:0;">
-          <div class="trip-order-row"><span>Negombo Fresh Mart <span class="small muted">ORD-4479</span></span><span class="badge badge-chilled">Chilled</span></div>
-          <div class="trip-order-row"><span>Wattala Lane Store <span class="small muted">ORD-4475</span></span><span class="badge badge-neutral">Van only outlet</span></div>
+          <div class="trip-order-row"><span>Negombo Fresh Mart &middot; ORD-4479</span><span class="badge badge-chilled">Chilled</span></div>
+          <div class="trip-order-row"><span>Wattala Lane Store &middot; ORD-4475</span><span class="badge badge-neutral">Van only outlet</span></div>
           <div class="cap-meter-row">
             <div class="cap-meter"><div class="lbl"><span>Volume</span><span>5.2 / 12 m³</span></div><div class="progress"><span style="width:43%"></span></div></div>
             <div class="cap-meter"><div class="lbl"><span>Trip time</span><span>301 / 270 min</span></div><div class="progress danger"><span style="width:100%"></span></div></div>
@@ -132,7 +138,7 @@
 <div class="modal-overlay" id="defer-modal" style="display:none;">
   <div class="modal">
     <div class="modal-title">Defer order</div>
-    <p class="small muted" id="defer-order-name">Wattala Lane Store <span class="small muted">ORD-4475</span></p>
+    <p class="small muted" id="defer-order-name">Wattala Lane Store &middot; ORD-4475</p>
     <div class="field" style="margin-top:var(--sp-4);">
       <label>Reason for deferral</label>
       <div class="defer-reason-list flex-col gap-2">
@@ -154,16 +160,21 @@
 <script>
   mountDispatcherShell("planning");
   document.getElementById("content").innerHTML = document.getElementById("page-tpl").innerHTML;
+  document.getElementById("ic-strip-list").innerHTML = ic("list");
+  document.getElementById("ic-strip-route").innerHTML = ic("route");
+  document.getElementById("ic-strip-pulse").innerHTML = ic("pulse");
+  document.getElementById("ic-strip-grid").innerHTML = ic("grid");
+  document.getElementById("ic-strip-bell").innerHTML = ic("bell");
 
   const pool = WP_DATA.orders.filter(o => o.status === "At risk");
   document.getElementById("order-pool").innerHTML = pool.map(o => `
     <div class="order-pool-item risk">
       <strong>${o.outlet}</strong>
-      <div class="small muted meta-row"><span>${o.id}</span><span>${o.brand}</span><span>${o.district}</span></div>
+      <div class="small muted">${o.id} &middot; ${o.brand} &middot; ${o.district}</div>
       <div class="meta">
         <span class="badge ${o.temp==='Chilled'?'badge-chilled':'badge-neutral'}">${o.temp}</span>
         <div class="flex gap-2">
-          <button class="btn btn-sm btn-secondary open-defer" data-name="${o.outlet} (${o.id})">Defer</button>
+          <button class="btn btn-sm btn-secondary open-defer" data-name="${o.outlet} &middot; ${o.id}">Defer</button>
           <button class="btn btn-sm btn-brand" onclick="toast('${o.outlet} assigned to VEH014, trip 2', 'success')">Assign</button>
         </div>
       </div>

@@ -9,6 +9,14 @@
 <link rel="stylesheet" href="css/tokens.css" />
 <link rel="stylesheet" href="css/components.css" />
 <link rel="stylesheet" href="css/layout.css" />
+<style>
+  .demand-cell { display:flex; align-items:center; gap:10px; min-width: 170px; }
+  .demand-cell .bar-track { flex:1; height:7px; border-radius: var(--r-pill); background: var(--c-surface-3); overflow:hidden; }
+  .demand-cell .bar-fill { display:block; height:100%; border-radius: var(--r-pill); background: var(--c-brand-grad); }
+  .demand-cell .bar-fill.chilled { background: linear-gradient(90deg, var(--c-chilled), #2b98ad); }
+  .demand-cell .val { font-weight:600; white-space:nowrap; }
+  .week-badge { display:inline-flex; align-items:center; gap:6px; font-weight:600; }
+</style>
 </head>
 <body>
 <div class="app-shell" id="app-shell"></div>
@@ -42,16 +50,23 @@
   mountDispatcherShell("capacity");
   document.getElementById("content").innerHTML = document.getElementById("page-tpl").innerHTML;
 
-  document.getElementById("rows").innerHTML = WP_DATA.capacityPlanning.map(r => `
+  const maxForecast = Math.max(...WP_DATA.capacityPlanning.map(r => parseFloat(r.forecast)));
+  const maxChilled = Math.max(...WP_DATA.capacityPlanning.map(r => parseFloat(r.chilled)), 1);
+  document.getElementById("rows").innerHTML = WP_DATA.capacityPlanning.map(r => {
+    const fPct = Math.max(6, Math.round((parseFloat(r.forecast) / maxForecast) * 100));
+    const cVal = parseFloat(r.chilled) || 0;
+    const cPct = Math.max(cVal ? 6 : 0, Math.round((cVal / maxChilled) * 100));
+    return `
     <tr class="${r.week.includes('Deepavali') ? 'row-flagged' : ''}">
-      <td>${r.week}</td>
+      <td><span class="week-badge">${r.week.includes('Deepavali') ? '<span class="badge badge-warning">Peak</span>' : ''}${r.week}</span></td>
       <td>${r.brand}</td>
       <td>${r.depot}</td>
-      <td>${r.forecast}</td>
-      <td>${r.chilled}</td>
+      <td><div class="demand-cell"><span class="val">${r.forecast}</span><div class="bar-track"><span class="bar-fill" style="width:${fPct}%"></span></div></div></td>
+      <td><div class="demand-cell"><span class="val">${r.chilled}</span><div class="bar-track"><span class="bar-fill chilled" style="width:${cPct}%"></span></div></div></td>
       <td>${r.vehiclesNeeded}</td>
       <td>${r.reeferNeeded}</td>
-    </tr>`).join("");
+    </tr>`;
+  }).join("");
 </script>
 </body>
 </html>
