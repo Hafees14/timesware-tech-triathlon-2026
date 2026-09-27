@@ -153,14 +153,18 @@
   }
 }
 
-/* ========== TOPBAR STICKY BEHAVIOR ========== */
+/* ========== TOPBAR STICKY BEHAVIOR ==========
+   Sticky (not fixed) so the topbar stays anchored to the top of its own
+   flex column (.main, to the right of the sidebar) and continues to
+   occupy space in normal flow. `position: fixed` here previously pulled
+   it fully out of flow and stretched it edge-to-edge (left:0; right:0),
+   which both overlapped the sidebar and floated it directly over the
+   first block of page content since nothing reserved space for it. */
 .topbar {
   will-change: transform;
   transition: transform var(--dur-med) var(--ease-smooth);
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   z-index: 20;
 }
 

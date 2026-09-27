@@ -129,7 +129,10 @@ table.data tbody tr.wow-reveal.wow-in { transition: opacity .45s var(--ease); }
    INDEX HUB — immersive hero
    ========================================================================== */
 .hub { position: relative; z-index: 2; }
-#wow-network { position: absolute; inset: -20%; z-index: 0; opacity: .8; }
+/* Canvas is a replaced element: inset alone doesn't stretch it, it only
+   offsets its intrinsic 300x150 default box, leaving most of the network
+   animation outside the viewport. Explicit width/height fixes that. */
+#wow-network { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; opacity: .8; }
 .hub .eyebrow { position: relative; overflow: hidden; }
 .hub .eyebrow::after {
   content: ""; position: absolute; top: 0; left: -100%; width: 60%; height: 100%;
