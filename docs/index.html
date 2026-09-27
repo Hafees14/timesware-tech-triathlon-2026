@@ -81,16 +81,36 @@
   .wp-hero-cue i {
     width: 1px; height: 28px; background: linear-gradient(180deg, #7c8894, transparent);
   }
+
+  /* ---- Journey state track: route line + traveling dot + state label ---- */
+  .wp-hero-route {
+    position: absolute; left: 50%; top: 50%; width: 420px; height: 2px;
+    transform: translate(-50%, -50%); pointer-events: none; opacity: 0; will-change: opacity;
+  }
+  .wp-hero-route svg { width: 100%; height: 100%; overflow: visible; display: block; }
+  .wp-hero-route .rt-line { fill: none; stroke: rgba(255,255,255,.14); stroke-width: 2; }
+  .wp-hero-route .rt-progress { fill: none; stroke: url(#wpRouteGrad); stroke-width: 2; stroke-linecap: round; }
+  .wp-hero-route .rt-node { fill: #10151d; stroke: #7c8894; stroke-width: 1.4; }
+  .wp-hero-route .rt-node.on { stroke: #d9a441; }
+  .wp-hero-route .rt-dot { fill: #fff; filter: drop-shadow(0 0 6px rgba(217,164,65,.9)); }
+  .wp-hero-state {
+    position: absolute; left: 50%; bottom: calc(50% - 118px); transform: translateX(-50%);
+    display: flex; align-items: center; gap: 8px; opacity: 0; will-change: opacity, transform;
+  }
+  .wp-hero-state .dot { width: 6px; height: 6px; border-radius: 50%; background: #d9a441; box-shadow: 0 0 8px rgba(217,164,65,.8); }
+  .wp-hero-state span { font-size: var(--fs-100); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #d9a441; }
   @media (max-width: 720px) {
     .wp-hero { height: 130vh; }
     .wp-hero-object { width: 92px; height: 92px; border-radius: 22px; font-size: 40px; }
     .wp-hero-copy h2 { font-size: 2.1rem; }
+    .wp-hero-route { width: 220px; }
+    .wp-hero-state { bottom: calc(50% - 86px); }
   }
   @media (prefers-reduced-motion: reduce) {
     .wp-hero { height: auto; }
     .wp-hero-stage { position: relative; height: auto; padding: var(--sp-9) 0; }
     .wp-hero-object, .wp-hero-copy { opacity: 1 !important; transform: none !important; position: static !important; margin-bottom: var(--sp-5); }
-    .wp-hero-cue { display: none; }
+    .wp-hero-cue, .wp-hero-route, .wp-hero-state { display: none; }
   }
 </style>
 <link rel="stylesheet" href="css/wow-premium.css" />
@@ -101,7 +121,23 @@
 
   <section class="wp-hero" id="wpHero">
     <div class="wp-hero-stage" id="wpHeroStage">
+      <div class="wp-hero-route" id="wpHeroRoute" aria-hidden="true">
+        <svg viewBox="0 0 420 2" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="wpRouteGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#b3730a"/>
+              <stop offset="100%" stop-color="#d9a441"/>
+            </linearGradient>
+          </defs>
+          <line class="rt-line" x1="0" y1="1" x2="420" y2="1"/>
+          <line class="rt-progress" id="wpRouteProgress" x1="0" y1="1" x2="0" y2="1"/>
+          <circle class="rt-node" cx="0" cy="1" r="4"/>
+          <circle class="rt-node" id="wpRouteEndNode" cx="420" cy="1" r="4"/>
+          <circle class="rt-dot" id="wpRouteDot" cx="0" cy="1" r="4.5"/>
+        </svg>
+      </div>
       <div class="wp-hero-object" id="wpHeroObject" aria-hidden="true">W</div>
+      <div class="wp-hero-state" id="wpHeroState"><span class="dot"></span><span id="wpHeroStateLabel">Planned</span></div>
       <div class="wp-hero-copy" id="wpHeroCopy">
         <h2>Waypoint</h2>
         <p>Intelligent Delivery Planning &amp; Operations</p>
@@ -177,7 +213,20 @@
   var obj = document.getElementById("wpHeroObject");
   var copy = document.getElementById("wpHeroCopy");
   var cue = document.getElementById("wpHeroCue");
+  var route = document.getElementById("wpHeroRoute");
+  var routeLine = document.getElementById("wpRouteProgress");
+  var routeDot = document.getElementById("wpRouteDot");
+  var endNode = document.getElementById("wpRouteEndNode");
+  var stateEl = document.getElementById("wpHeroState");
+  var stateLabel = document.getElementById("wpHeroStateLabel");
   if (!hero || !stage || !obj) return;
+
+  var ROUTE_W = 420;
+  var lastState = "";
+  function setState(p) {
+    var label = p < 0.34 ? "Planned" : p < 0.58 ? "In transit" : p < 0.86 ? "Approaching" : "Delivered";
+    if (label !== lastState) { lastState = label; stateLabel.textContent = label; }
+  }
 
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduceMotion) return; // CSS fallback already makes everything visible/static
@@ -260,6 +309,23 @@
       copy.style.transform = "translateY(" + (14 * (1 - copyP)) + "px) scale(" + (0.96 + 0.04 * copyP) + ")";
     }
     if (cue) cue.style.opacity = Math.max(0, 1 - p * 3.2);
+
+    /* Route line: vehicle position = route progress (one driver, no independent motion) */
+    if (route && routeLine && routeDot) {
+      var routeP = p < 0.22 ? 0 : (p > 0.94 ? Math.max(0, 1 - (p - 0.94) / 0.06) : Math.min(1, (p - 0.22) / 0.12));
+      var travel = Math.max(0, Math.min(1, (p - 0.06) / 0.88));
+      var x = travel * ROUTE_W;
+      route.style.opacity = routeP;
+      routeLine.setAttribute("x2", x.toFixed(1));
+      routeDot.setAttribute("cx", x.toFixed(1));
+      if (endNode) endNode.setAttribute("class", "rt-node" + (travel > 0.97 ? " on" : ""));
+    }
+    if (stateEl) {
+      var stateP = p < 0.22 ? 0 : (p > 0.94 ? Math.max(0, 1 - (p - 0.94) / 0.06) : Math.min(1, (p - 0.22) / 0.12));
+      stateEl.style.opacity = stateP;
+      stateEl.style.transform = "translateX(-50%) translateY(" + (8 * (1 - stateP)) + "px)";
+      setState(p);
+    }
 
     stage.style.transform = "scale(" + (1 - 0.04 * Math.max(0, (p - 0.6) / 0.4)) + ")";
   }

@@ -61,7 +61,7 @@
 /* Card lift on cursor approach */
 .kpi-card, .card {
   transition: transform var(--dur-med) var(--ease-bounce),
-              box-shadow var(--dur-med) var(--ease-smooth));
+              box-shadow var(--dur-med) var(--ease-smooth);
   transform-style: preserve-3d;
   will-change: transform, box-shadow;
 }
@@ -124,7 +124,7 @@
   cursor: pointer;
   position: relative;
   transition: transform var(--dur-med) var(--ease-bounce),
-              box-shadow var(--dur-med) var(--ease-smooth));
+              box-shadow var(--dur-med) var(--ease-smooth);
   will-change: transform;
 }
 

@@ -39,6 +39,38 @@ CSS/JS files were touched for this:
 - All links are relative (`index.html`, same folder) — no path changes needed
   for GitHub Pages.
 
+## 4) Client-polish pass (this session)
+- **Fixed a CSS bug** in `docs/css/wow-premium.css`: two `transition` rules
+  (`.kpi-card, .card` and `.role-card`) had a stray extra `)` after
+  `var(--ease-smooth)`, which made the whole `box-shadow` transition
+  declaration invalid and silently dropped by the browser. Removed the
+  extra paren in both places — hover shadow transitions on cards now
+  actually animate instead of snapping.
+- **Home hero now tells the delivery story explicitly**, not just via
+  object scale/opacity. Added, inside `index.html`'s existing hero
+  `<style>`/`<script>` (no shared files touched, same pattern as the
+  original hero):
+  - A thin SVG route line with a start node, an end node, and a
+    traveling dot. The dot's position is driven by the *same* scroll
+    progress value as everything else — no independent animation, so
+    "vehicle position = route progress" holds literally.
+  - A small uppercase state label (`Planned → In transit → Approaching →
+    Delivered`) that swaps as the user scrolls/scrubs, mirroring the
+    IN TRANSIT → ARRIVED → DELIVERED transformation the brief asks for,
+    using Waypoint's existing brand-gold color and type scale only.
+  - End node gets a `.on` state (brand-gold ring) once the dot arrives,
+    giving a visible "delivery confirmed" beat without a giant animation.
+  - Everything fades in/out on the same easing curve as the existing
+    object/copy, and is fully hidden under `prefers-reduced-motion`
+    (existing fallback rule extended to cover the new elements).
+- **Live Operations: vehicle marker on the existing progress bar.**
+  Rows with status "In Transit" now show a small glowing dot riding at
+  the bar's current `%` — the literal Uber principle (map → route →
+  vehicle → destination → status) applied to the one page that's
+  already a live-ops table, using the existing `.progress` component
+  unchanged (marker is a small additive absolutely-positioned span, no
+  markup restructuring, respects `prefers-reduced-motion`).
+
 ## Push to GitHub
 
 ```bash
