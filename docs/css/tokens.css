@@ -1,14 +1,13 @@
 /* ==========================================================================
-   WAYPOINT DESIGN SYSTEM — TOKENS  (v3, "operational editorial")
-   Route + movement signature. Cold-chain cyan is the primary operational
-   accent; amber is reserved for exceptions/warnings only, never default UI.
+   WAYPOINT DESIGN SYSTEM — TOKENS  (v2, commercial-grade)
+   Premium enterprise logistics visual language.
    ========================================================================== */
 
 :root {
-  /* ---- Color: neutrals (cool graphite, not pure black/white) ---- */
-  --c-ink-900: #11151c;
-  --c-ink-800: #191f28;
-  --c-ink-700: #262e39;
+  /* ---- Color: neutrals (warm graphite, not pure black/white) ---- */
+  --c-ink-900: #12151b;
+  --c-ink-800: #1a1f27;
+  --c-ink-700: #262e38;
   --c-ink-600: #3d4753;
   --c-ink-500: #5b6874;
   --c-ink-400: #7c8894;
@@ -16,30 +15,21 @@
   --c-ink-200: #ced3d8;
   --c-ink-100: #e7e9eb;
   --c-surface-0: #ffffff;
-  --c-surface-1: #f6f6f4;
-  --c-surface-2: #ececea;
-  --c-surface-3: #e1e3e0;
+  --c-surface-1: #f7f7f5;
+  --c-surface-2: #eeefec;
+  --c-surface-3: #e4e6e1;
   --c-border: #e0e2e1;
   --c-border-strong: #c3c8cb;
 
-  /* ---- Color: operational chrome (deep navy/near-black) ---- */
-  --c-navy: #0b1017;
-  --c-navy-raised: #151c26;
-  --c-navy-grad: linear-gradient(165deg, #101720 0%, #090d13 100%);
-
-  /* ---- Color: primary accent — cold-chain ice/cyan (movement, precision, live systems) ---- */
-  --c-accent: #1fb2c9;
-  --c-accent-hi: #4fd0e4;
-  --c-accent-ink: #0d5c6c;
-  --c-accent-tint: #dff5f8;
-  --c-accent-grad: linear-gradient(135deg, #29c2d9 0%, #128098 100%);
-
-  /* ---- Color: amber — reserved for warnings / exceptions, never a default button ---- */
-  --c-brand: #c07a12;
-  --c-brand-hi: #dd951f;
+  /* ---- Color: brand ---- */
+  --c-brand: #b3730a;
+  --c-brand-hi: #d68f1f;
   --c-brand-ink: #7a4d05;
   --c-brand-tint: #fbeed9;
-  --c-brand-grad: linear-gradient(135deg, #d99420 0%, #b3730a 100%);
+  --c-brand-grad: linear-gradient(135deg, #c9840f 0%, #a8690a 100%);
+  --c-navy: #0e141d;
+  --c-navy-raised: #182130;
+  --c-navy-grad: linear-gradient(165deg, #131a24 0%, #0b0f15 100%);
 
   /* ---- Color: status (reserved exclusively for state, never decoration) ---- */
   --c-success: #1c8a56;
@@ -52,21 +42,15 @@
   --c-danger-tint: #fbe6e6;
   --c-info: #2472a4;
   --c-info-tint: #e3f0f6;
-  --c-chilled: #1786a0;
+  --c-chilled: #1f7a8c;
   --c-chilled-tint: #e1f1f4;
   --c-neutral-badge: #5b6874;
   --c-neutral-badge-tint: #eceeef;
 
-  /* ---- Route / movement signature (the Waypoint motif: ●━━━━● ) ---- */
-  --route-line: var(--c-accent);
-  --route-line-dim: var(--c-ink-200);
-  --route-node: var(--c-ink-900);
-  --route-dash: 6;
-
   /* ---- Typography ---- */
   --f-ui: "Inter", -apple-system, "Segoe UI", sans-serif;
   --f-display: "Space Grotesk", "Inter", sans-serif;
-  --f-mono: "Fragment Mono", "IBM Plex Mono", "SFMono-Regular", monospace;
+  --f-mono: "IBM Plex Mono", "SFMono-Regular", monospace;
 
   --fs-100: 0.75rem;
   --fs-200: 0.8125rem;
@@ -152,22 +136,3 @@ button { font-family: inherit; }
 .wp-animate-in { animation: wp-rise var(--dur-slow) var(--ease) both; }
 @keyframes wp-fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes wp-pulse-ring { 0% { box-shadow: 0 0 0 0 currentColor; opacity: .55; } 100% { box-shadow: 0 0 0 6px currentColor; opacity: 0; } }
-
-/* ---- Route / movement signature: ●━━━━━━● ---- */
-@keyframes wp-route-draw { to { stroke-dashoffset: 0; } }
-.route-svg path.route-path {
-  fill: none; stroke: var(--route-line); stroke-width: 2.5; stroke-linecap: round;
-  stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: wp-route-draw 1100ms var(--ease) forwards;
-}
-.route-svg .route-node { fill: var(--route-node); }
-.route-svg .route-node.accent { fill: var(--route-line); }
-.route-svg .route-vehicle { opacity: 0; animation: wp-fade 300ms var(--ease) 1000ms forwards; }
-
-/* ---- Live sync ticker ---- */
-.sync-tick { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.02em; color: var(--c-ink-500); }
-
-@media (prefers-reduced-motion: reduce) {
-  .wp-animate-in, .route-svg path.route-path, .route-svg .route-vehicle { animation: none !important; }
-  .route-svg path.route-path { stroke-dashoffset: 0; }
-  .route-svg .route-vehicle { opacity: 1; }
-}

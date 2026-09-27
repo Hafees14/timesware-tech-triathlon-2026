@@ -141,20 +141,5 @@
     if (reduceMotion) { step(); } else { requestAnimationFrame(step); }
   }
 
-  /* ---------- Live sync ticker: "SYNCED Ns AGO" that resets to "JUST NOW" ---------- */
-  function syncTicker(selector, resetMs) {
-    document.querySelectorAll(selector).forEach(el => {
-      let secs = 0;
-      const reset = resetMs || 45000;
-      const render = () => { el.textContent = secs === 0 ? "SYNCED JUST NOW" : `SYNCED ${secs}s AGO`; };
-      render();
-      setInterval(() => {
-        secs += 1;
-        if (secs * 1000 >= reset) secs = 0;
-        render();
-      }, 1000);
-    });
-  }
-
-  window.WOW = { countUp, countUpAll, reveal, fillIn, magnetic, tilt, initNetworkCanvas, syncTicker };
+  window.WOW = { countUp, countUpAll, reveal, fillIn, magnetic, tilt, initNetworkCanvas };
 })();
