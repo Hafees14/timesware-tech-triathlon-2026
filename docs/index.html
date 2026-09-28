@@ -28,7 +28,7 @@
     background-size: 42px 42px; mask-image: radial-gradient(circle at 50% 30%, rgba(0,0,0,.9), transparent 70%);
   }
   #wow-network { position: fixed !important; inset: 0 !important; width: 100vw !important; height: 100vh !important; }
-  .hub-section { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: var(--sp-7) 0; position: relative; z-index: 1; }
+  .hub-section { min-height: 0; display: flex; align-items: center; justify-content: center; padding: var(--sp-7) 0 var(--sp-8); position: relative; z-index: 1; }
   .hub { max-width: 920px; width: 100%; padding: var(--sp-7); position: relative; z-index: 1; animation: wp-rise 600ms var(--ease) both; }
   .hub .eyebrow { display:inline-flex; align-items:center; gap:8px; font-size: var(--fs-100); text-transform: uppercase; letter-spacing: 0.08em; color: #d9a441; font-weight: 700; background: rgba(179,115,10,.14); border: 1px solid rgba(179,115,10,.3); padding: 5px 12px; border-radius: var(--r-pill); margin-bottom: var(--sp-4); }
   .hub .brand-row { display:flex; align-items:center; gap:14px; margin-bottom: 10px; }
@@ -56,7 +56,7 @@
   @media (max-width: 800px) { .role-grid { grid-template-columns: 1fr 1fr; } }
 
   /* ---- Centered scroll hero (Home only) ---- */
-  .wp-hero { position: relative; z-index: 1; height: 180vh; }
+  .wp-hero { position: relative; z-index: 1; height: 150vh; margin-bottom: -35vh; }
   .wp-hero-stage {
     position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center;
     overflow: hidden; will-change: transform;
@@ -162,7 +162,7 @@
   <div class="hub-section">
   <div class="hub">
     <span class="eyebrow">Team Timesware &middot; Tech-Triathlon 2026</span>
-    <div class="brand-row"><div class="mark">W</div><h1 class="wow-kinetic-h1" style="margin:0;">Waypoint</h1></div>
+    <div class="brand-row"><div class="mark">W</div><h1 style="margin:0;">Waypoint</h1></div>
     <p class="lead">Intelligent Delivery Planning &amp; Operations System for cold-chain retail distribution — allocation, live tracking, and deferral management across four connected roles. Pick a role to open its experience.</p>
     <div class="role-grid">
       <a class="role-card" href="dispatcher-overview.html">
@@ -290,24 +290,23 @@
     var scale, rot, opacity, ty;
     var proximity = 1 - Math.min(1, Math.abs(p - 0.46) / 0.46); // cursor influence peaks mid-sequence
 
-    if (p <= 0.32) {
-      var t = ease(p / 0.32);
-      scale = 0.5 + t * 0.85;
-      rot = -10 + t * 10;
-      opacity = Math.min(1, t * 1.4);
-      ty = 40 * (1 - t);
-    } else if (p <= 0.6) {
-      var t2 = (p - 0.32) / 0.28;
-      scale = 1.35 - t2 * 0.05;
+    if (p <= 0.38) {
+      var t = ease(p / 0.38);
+      scale = 0.55 + t * 0.75;
+      rot = 0;
+      opacity = Math.min(1, t * 1.6);
+      ty = 24 * (1 - t);
+    } else if (p <= 0.78) {
+      scale = 1.30;
       rot = 0;
       opacity = 1;
       ty = 0;
     } else {
-      var t3 = ease((p - 0.6) / 0.4);
-      scale = 1.30 - t3 * 0.9;
-      rot = t3 * 8;
+      var t3 = ease((p - 0.78) / 0.22);
+      scale = 1.30 - t3 * 0.35;
+      rot = 0;
       opacity = 1 - t3;
-      ty = -50 * t3;
+      ty = -16 * t3;
     }
 
     var mxOff = mx * 18 * proximity;
@@ -316,11 +315,7 @@
     obj.style.opacity = opacity;
     obj.style.transform = "translate3d(" + mxOff + "px," + (ty + myOff) + "px,0) scale(" + scale + ") rotate(" + rot + "deg)";
 
-    if (copy) {
-      var copyP = p < 0.30 ? 0 : (p > 0.62 ? Math.max(0, 1 - (p - 0.62) / 0.25) : Math.min(1, (p - 0.30) / 0.12));
-      copy.style.opacity = copyP;
-      copy.style.transform = "translateX(-50%) translateY(" + (14 * (1 - copyP)) + "px) scale(" + (0.96 + 0.04 * copyP) + ")";
-    }
+    if (copy) { copy.style.opacity = p > 0.78 ? Math.max(0, 1 - (p - 0.78) / 0.16) : 1; copy.style.transform = "translateX(-50%)"; }
     if (cue) cue.style.opacity = Math.max(0, 1 - p * 3.2);
 
     /* Route line: vehicle position = route progress (one driver, no independent motion) */
@@ -340,7 +335,7 @@
       setState(p);
     }
 
-    stage.style.transform = "scale(" + (1 - 0.04 * Math.max(0, (p - 0.6) / 0.4)) + ")";
+    /* stage kept still */
   }
 
   window.addEventListener("scroll", onScroll, { passive: true });

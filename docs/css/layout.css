@@ -39,3 +39,43 @@
   .content { padding: var(--sp-4); }
   .grid-2col { grid-template-columns: 1fr; }
 }
+
+/* ===== Responsive hardening (all pages) ===== */
+img, svg, video, canvas { max-width: 100%; }
+@media (max-width: 720px) {
+  .topbar { height: auto; min-height: var(--topbar-h); flex-wrap: wrap; padding: var(--sp-3) var(--sp-4); row-gap: var(--sp-2); }
+  .topbar-left { flex-wrap: wrap; gap: var(--sp-2); min-width: 0; }
+  .topbar-right { gap: var(--sp-2); margin-left: auto; }
+  .search-box { min-width: 0; padding: 8px 10px; }
+  .search-box span { display: none; }
+  .chip { white-space: nowrap; }
+  .tb-top { padding: var(--sp-3) var(--sp-4) !important; gap: var(--sp-2); flex-wrap: wrap; }
+  .tb-top .name { font-size: var(--fs-400) !important; white-space: nowrap; }
+  .tb-top .chip { white-space: nowrap; }
+  .page-head { flex-wrap: wrap; gap: var(--sp-3); }
+  .page-head .btn { max-width: 100%; }
+  .dock-card, .stop-card { flex-wrap: wrap; padding: var(--sp-4) !important; }
+  .dock-card > div, .stop-card > div { min-width: 0; }
+  .dock-card > div:last-child { width: 100%; justify-content: space-between; flex-wrap: wrap; }
+  .dock-card .btn-lg { flex: 1 1 100%; justify-content: center; padding: 12px 16px; font-size: var(--fs-400); white-space: normal; }
+  .btn-lg { padding: 12px 16px; font-size: var(--fs-400); }
+  .card, .panel { min-width: 0; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  .modal { max-width: calc(100vw - 24px); }
+}
+@media (max-width: 420px) {
+  .topbar-left .chip:nth-child(n+2) { display: none; }
+  .kpi-row, .kpi-row.kpi-4, .kpi-row.kpi-3 { grid-template-columns: 1fr; }
+}
+@media (max-width: 420px) {
+  .tb-top .flex { flex-wrap: wrap; min-width: 0; gap: var(--sp-2); }
+  .tb-top .chip { white-space: normal; max-width: 100%; }
+}
+@media (max-width: 480px) {
+  .sm-top { padding: var(--sp-3) var(--sp-4) !important; gap: var(--sp-2); flex-wrap: wrap; }
+  .sm-top .flex { flex-wrap: wrap; min-width: 0; }
+  .sm-top .chip { white-space: normal; max-width: 100%; }
+  .sm-wrap { padding: var(--sp-4) !important; }
+  .cutoff-card { flex-wrap: wrap; gap: var(--sp-3); }
+  .qty-row { gap: var(--sp-3); flex-wrap: wrap; }
+}

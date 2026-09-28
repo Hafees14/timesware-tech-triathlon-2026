@@ -61,7 +61,8 @@ body.wow-mesh .nav-item.active::after {
 
 /* ---------- Kinetic gradient headline ---------- */
 .wow-kinetic-h1 {
-  background: linear-gradient(100deg, currentColor 28%, var(--c-brand-hi) 46%, var(--c-info) 54%, currentColor 72%);
+  --kh-base: var(--c-ink-900);
+  background: linear-gradient(100deg, var(--kh-base) 28%, var(--c-brand-hi) 46%, var(--c-info) 54%, var(--kh-base) 72%);
   background-size: 260% auto;
   -webkit-background-clip: text; background-clip: text; color: transparent;
   animation: wow-sheen 7s linear infinite;
