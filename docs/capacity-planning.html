@@ -58,8 +58,8 @@
     const cVal = parseFloat(r.chilled) || 0;
     const cPct = Math.max(cVal ? 6 : 0, Math.round((cVal / maxChilled) * 100));
     return `
-    <tr class="${r.week.includes('Deepavali') ? 'row-flagged' : ''}">
-      <td><span class="week-badge">${r.week.includes('Deepavali') ? '<span class="badge badge-warning">Peak</span>' : ''}${r.week}</span></td>
+    <tr class="${r.week.includes('Festival') ? 'row-flagged' : ''}">
+      <td><span class="week-badge">${r.week.includes('Festival') ? '<span class="badge badge-warning">Peak</span>' : ''}${r.week}</span></td>
       <td>${r.brand}</td>
       <td>${r.depot}</td>
       <td><div class="demand-cell"><span class="val">${r.forecast}</span><div class="bar-track"><span class="bar-fill" style="width:${fPct}%"></span></div></div></td>
