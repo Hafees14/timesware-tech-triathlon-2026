@@ -1,0 +1,7 @@
+Timesware - Tech-Triathlon 2026 - Designathon submission
+Team: MFM Ayyash and MKH Hafees
+
+Prototype (live): https://hafees14.github.io/timesware-tech-triathlon-2026/
+Demo video (unlisted YouTube): https://youtu.be/R66atItt5bE
+Figma design file: https://www.figma.com/design/j3b3g8u5DfCEwmVs99uavf/Tech_Triathlon_2026_Timesware?node-id=4-3&t=gvYndJT0gXW0x3eN-1
+GitHub repository: https://github.com/Hafees14/timesware-tech-triathlon-2026
